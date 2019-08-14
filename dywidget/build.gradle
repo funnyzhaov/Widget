@@ -1,9 +1,7 @@
 apply plugin: 'com.android.library'
-
 android {
     compileSdkVersion 28
     defaultConfig {
-//        applicationId "inc.dailyyoga.widget"
         minSdkVersion 15
         targetSdkVersion 28
         versionCode 1

@@ -154,6 +154,7 @@ public class SceneManager {
         }else {
             //默认第一次存储第一个环境
             SpHelper.getSpHelper().putStringValue(HTTP_SCENE_KEY,mFirstKey).doCommit();
+            mCacheKeyName = mFirstKey;
         }
     }
 
@@ -219,6 +220,7 @@ public class SceneManager {
             Field urlFiled = clz.getDeclaredField(mCachedUrlFiledName);
             urlFiled.setAccessible(true);
             urlFiled.set(object, httpManagerGroup.get(0).getUrl()+"/");
+            changeHttpUrlReset(sceneKey);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (NoSuchFieldException e) {
@@ -230,6 +232,8 @@ public class SceneManager {
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (SceneException e){
             e.printStackTrace();
         }
 

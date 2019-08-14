@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -70,11 +71,9 @@ public class FloatingHttpChangeAdapter extends RecyclerView.Adapter<FloatingHttp
     @Override
     public void onBindViewHolder(@NonNull final HttpHolder httpHolder, final int position) {
         if (mSceneKeyList.get(position).isSelect()){
-            Drawable drawable=mContext.getResources().getDrawable(R.drawable.current_select);
-            drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
-            httpHolder.mScene.setCompoundDrawables(drawable,null,null,null);
+            httpHolder.mArrow.setVisibility(View.VISIBLE);
         }else {
-            httpHolder.mScene.setCompoundDrawables(null,null,null,null);
+            httpHolder.mArrow.setVisibility(View.GONE);
         }
         httpHolder.mScene.setText(mSceneKeyList.get(position).getKey());
         httpHolder.mChange.setOnClickListener(new View.OnClickListener() {
@@ -92,12 +91,6 @@ public class FloatingHttpChangeAdapter extends RecyclerView.Adapter<FloatingHttp
                 notifyDataSetChanged();
             }
         });
-        httpHolder.mChangeRestApp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SceneManager.getInstance().changeHttpResetApp(mSceneKeyList.get(position).getKey());
-            }
-        });
     }
 
     @Override
@@ -108,13 +101,13 @@ public class FloatingHttpChangeAdapter extends RecyclerView.Adapter<FloatingHttp
     static class HttpHolder extends RecyclerView.ViewHolder{
         private TextView mScene;
         private TextView mChange;
-        private TextView mChangeRestApp;
+        private ImageView mArrow;
 
         public HttpHolder(@NonNull View itemView) {
             super(itemView);
             mScene=itemView.findViewById(R.id.tv_scene);
             mChange=itemView.findViewById(R.id.tv_scene_change);
-            mChangeRestApp=itemView.findViewById(R.id.tv_scene_change_reset);
+            mArrow=itemView.findViewById(R.id.iv_arrow);
         }
     }
 }
