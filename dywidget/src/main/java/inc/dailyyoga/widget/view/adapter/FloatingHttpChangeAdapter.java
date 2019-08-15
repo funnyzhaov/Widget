@@ -80,7 +80,7 @@ public class FloatingHttpChangeAdapter extends RecyclerView.Adapter<FloatingHttp
             @Override
             public void onClick(View v) {
                 try {
-                    SceneManager.getInstance().changeHttpUrl(mSceneKeyList.get(position).getKey());
+                    SceneManager.getInstance().changeHttpUrlAll(mSceneKeyList.get(position).getKey());
                 } catch (SceneException e) {
                     e.printStackTrace();
                 }
@@ -89,6 +89,12 @@ public class FloatingHttpChangeAdapter extends RecyclerView.Adapter<FloatingHttp
                 }
                 mSceneKeyList.get(position).setSelect(true);
                 notifyDataSetChanged();
+            }
+        });
+        httpHolder.mRestChange.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SceneManager.getInstance().changeHttpResetApp(mSceneKeyList.get(position).getKey());
             }
         });
     }
@@ -102,12 +108,14 @@ public class FloatingHttpChangeAdapter extends RecyclerView.Adapter<FloatingHttp
         private TextView mScene;
         private TextView mChange;
         private ImageView mArrow;
+        private TextView mRestChange;
 
         public HttpHolder(@NonNull View itemView) {
             super(itemView);
             mScene=itemView.findViewById(R.id.tv_scene);
             mChange=itemView.findViewById(R.id.tv_scene_change);
             mArrow=itemView.findViewById(R.id.iv_arrow);
+            mRestChange=itemView.findViewById(R.id.tv_scene_change_reset);
         }
     }
 }

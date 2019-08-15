@@ -47,10 +47,17 @@ public class FloatingViewManager implements View.OnClickListener {
 
     //组件
     private Button mFloatingButton;
-    //关闭面板
-    private ImageView mCloseTv;
     //面板
-    private RelativeLayout mBroad;
+    private LinearLayout mBox;
+    //关闭
+    private ImageView mCloseTv;
+
+    //功能组件
+    private ImageView mNetArrow;//网络
+    private ImageView mAysArrow;//统计
+
+    //网络面板
+    private FrameLayout mNetBroad;
     //网络组件
     private RecyclerView mHttpChangeView;
     private FloatingHttpChangeAdapter mHttpChangeAdapter;
@@ -90,12 +97,23 @@ public class FloatingViewManager implements View.OnClickListener {
 
     private void initListener(){
         mFloatingButton=mFloatingLayout.findViewById(R.id.bt_floating);
-        mHttpChangeView=mFloatingLayout.findViewById(R.id.change_http_rv);
-        mBroad=mFloatingLayout.findViewById(R.id.rl_broad);
-        mBroad.setVisibility(View.GONE);
+        mBox=mFloatingLayout.findViewById(R.id.ll_box);
         mCloseTv=mFloatingLayout.findViewById(R.id.iv_close);
+
+        //组件
+        mNetArrow=mFloatingLayout.findViewById(R.id.iv_net);
+        mAysArrow=mFloatingLayout.findViewById(R.id.iv_ays);
+
         mFloatingButton.setOnClickListener(this);
         mCloseTv.setOnClickListener(this);
+        mNetArrow.setOnClickListener(this);
+        mAysArrow.setOnClickListener(this);
+
+
+        mNetBroad=mFloatingLayout.findViewById(R.id.net_change);
+        mHttpChangeView=mNetBroad.findViewById(R.id.change_http_rv);
+        mNetBroad.setVisibility(View.GONE);
+        mBox.setVisibility(View.GONE);
     }
 
     @Override
@@ -105,6 +123,17 @@ public class FloatingViewManager implements View.OnClickListener {
         }
         if (v.getId()==R.id.iv_close){
             closeFloatingBroad();
+        }
+        if (v.getId()==R.id.iv_net){
+            openNetBroad();
+        }
+    }
+
+    private void openNetBroad() {
+        if (mNetBroad.getVisibility()==View.GONE){
+            mNetBroad.setVisibility(View.VISIBLE);
+        }else {
+            mNetBroad.setVisibility(View.GONE);
         }
     }
 
@@ -142,13 +171,10 @@ public class FloatingViewManager implements View.OnClickListener {
     }
 
     private void switchBroad(){
-        if (mBroad.getVisibility()==View.GONE){
-            mBroad.setVisibility(View.VISIBLE);
-            mCloseTv.setVisibility(View.VISIBLE);
-            Toast.makeText(mContext,"欢迎使用调试板",Toast.LENGTH_SHORT).show();
+        if (mBox.getVisibility()==View.GONE){
+            mBox.setVisibility(View.VISIBLE);
         }else {
-            mBroad.setVisibility(View.GONE);
-            mCloseTv.setVisibility(View.GONE);
+            mBox.setVisibility(View.GONE);
         }
     }
 

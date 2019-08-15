@@ -147,7 +147,7 @@ public class SceneManager {
             String cacheKey = SpHelper.getSpHelper().getStringValue(HTTP_SCENE_KEY);
             mCacheKeyName = cacheKey;
             try {
-                changeHttpUrlReset(cacheKey);
+                changeHttpUrlBase(cacheKey);
             } catch (SceneException e) {
                 e.printStackTrace();
             }
@@ -168,11 +168,11 @@ public class SceneManager {
     }
 
     /**
-     * 改变url 立即生效
+     * 改变url 初始管理类生效
      *
      * @param sceneKey 场景Key
      */
-    private void changeHttpUrlReset(String sceneKey) throws SceneException {
+    private void changeHttpUrlBase(String sceneKey) throws SceneException {
         List<HttpItem> httpManagerGroup = mHttpManagerMap.get(sceneKey);
         if (httpManagerGroup == null || httpManagerGroup.size() == 0) {
             throw new SceneException("HttpManager数据异常，请检查初始化方法是否传入了null");
@@ -200,10 +200,10 @@ public class SceneManager {
     }
 
     /**
-     * 改变url 立即生效
+     * 改变url 全景生效
      * @param sceneKey 场景Key
      */
-    public void changeHttpUrl(String sceneKey) throws SceneException {
+    public void changeHttpUrlAll(String sceneKey) throws SceneException {
         if (mCachedUrlClassName==null || "".equals(mCachedUrlClassName)
                 || mCachedUrlFiledName==null || "".equals(mCachedUrlFiledName)){
             throw new SceneException("请调用setCachedUrlClass设置自定义网络库的信息");
@@ -220,7 +220,8 @@ public class SceneManager {
             Field urlFiled = clz.getDeclaredField(mCachedUrlFiledName);
             urlFiled.setAccessible(true);
             urlFiled.set(object, httpManagerGroup.get(0).getUrl()+"/");
-            changeHttpUrlReset(sceneKey);
+            changeHttpUrlBase(sceneKey);
+            SpHelper.getSpHelper().putStringValue(HTTP_SCENE_KEY, sceneKey).doCommit();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (NoSuchFieldException e) {
