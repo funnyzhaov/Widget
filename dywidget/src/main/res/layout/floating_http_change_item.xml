@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:layout_marginBottom="20dp"
     android:background="#ffffff"
-    android:layout_width="200dp"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <FrameLayout
         android:layout_gravity="center"

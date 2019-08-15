@@ -309,4 +309,14 @@ public class SceneManager {
     }
 
 
+
+    /*
+        事件埋点功能
+     */
+
+    public void openAysEvent(){
+
+    }
+
+
 }
