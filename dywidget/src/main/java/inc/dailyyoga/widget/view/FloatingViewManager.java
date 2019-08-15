@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -46,6 +47,8 @@ public class FloatingViewManager implements View.OnClickListener {
 
     //组件
     private Button mFloatingButton;
+    //关闭面板
+    private ImageView mCloseTv;
     //面板
     private RelativeLayout mBroad;
     //网络组件
@@ -90,7 +93,9 @@ public class FloatingViewManager implements View.OnClickListener {
         mHttpChangeView=mFloatingLayout.findViewById(R.id.change_http_rv);
         mBroad=mFloatingLayout.findViewById(R.id.rl_broad);
         mBroad.setVisibility(View.GONE);
+        mCloseTv=mFloatingLayout.findViewById(R.id.iv_close);
         mFloatingButton.setOnClickListener(this);
+        mCloseTv.setOnClickListener(this);
     }
 
     @Override
@@ -98,6 +103,13 @@ public class FloatingViewManager implements View.OnClickListener {
         if (v.getId()==R.id.bt_floating){
             switchBroad();
         }
+        if (v.getId()==R.id.iv_close){
+            closeFloatingBroad();
+        }
+    }
+
+    private void closeFloatingBroad() {
+        mFloatingLayout.setVisibility(View.GONE);
     }
 
     /**
@@ -132,9 +144,11 @@ public class FloatingViewManager implements View.OnClickListener {
     private void switchBroad(){
         if (mBroad.getVisibility()==View.GONE){
             mBroad.setVisibility(View.VISIBLE);
+            mCloseTv.setVisibility(View.VISIBLE);
             Toast.makeText(mContext,"欢迎使用调试板",Toast.LENGTH_SHORT).show();
         }else {
             mBroad.setVisibility(View.GONE);
+            mCloseTv.setVisibility(View.GONE);
         }
     }
 

@@ -2,20 +2,31 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:background="#ffffff"
-    android:padding="20dp"
+    android:background="@android:color/transparent"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
-    <Button
-        android:layout_gravity="center"
-        android:id="@+id/bt_floating"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="@drawable/air_bg"
-        android:text="FO"
-        android:textColor="#ffffff" />
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_gravity="center"
+            android:id="@+id/bt_floating"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/air_bg"
+            android:text="FO"
+            android:textColor="#ffffff" />
+        <ImageView
+            android:id="@+id/iv_close"
+            android:background="@drawable/close_floating_broad"
+            android:layout_marginLeft="160dp"
+            android:layout_gravity="right|center_vertical"
+            android:layout_width="32dp"
+            android:layout_height="32dp" />
+    </FrameLayout>
 
     <RelativeLayout
+        android:background="#ffffff"
         android:layout_marginTop="20dp"
         android:id="@+id/rl_broad"
         android:layout_width="200dp"
