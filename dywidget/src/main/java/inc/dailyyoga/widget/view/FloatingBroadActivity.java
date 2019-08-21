@@ -18,7 +18,7 @@ public class FloatingBroadActivity extends DyBaseActivity implements View.OnClic
     private FrameLayout mNetArrow;//网络
     private FrameLayout mAysArrow;//统计
 
-
+    private String mFromClassName;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -26,6 +26,7 @@ public class FloatingBroadActivity extends DyBaseActivity implements View.OnClic
         setContentView(R.layout.floating_view_layout);
         mCloseTv=findViewById(R.id.iv_close);
         initListener();
+        mFromClassName=getIntent().getStringExtra("className");
     }
 
 
@@ -42,14 +43,15 @@ public class FloatingBroadActivity extends DyBaseActivity implements View.OnClic
     public void onClick(View v) {
         if (v.getId()==R.id.iv_close){
             finish();
-            SceneManager.getInstance().hideFloatingView();
+            SceneManager.getInstance().hideFloatingView(mFromClassName);
         }
         if (v.getId()==R.id.f1){
             Intent intent=new Intent(this,NetChangeBroadActivity.class);
             startActivity(intent);
         }
         if (v.getId()==R.id.f2){
-
+            Intent intent=new Intent(this,AysBroadActivity.class);
+            startActivity(intent);
         }
     }
 }

@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import inc.dailyyoga.widget.R;
@@ -32,6 +33,8 @@ import inc.dailyyoga.widget.util.ActivityStack;
 
  */
 public class FloatingViewManager implements View.OnClickListener {
+    private FrameLayout mRootView;
+    private int mGravity=0;
 
     private View mFloatingLayout;
     private Activity mContext;
@@ -39,10 +42,12 @@ public class FloatingViewManager implements View.OnClickListener {
     //组件
     private Button mFloatingButton;
 
+    public Activity getMActivity(){
+        return mContext;
+    }
 
     public FloatingViewManager(Activity context) {
         mContext = context;
-        initFloatingButton();
     }
 
     private void initFloatingButton(){
@@ -50,20 +55,17 @@ public class FloatingViewManager implements View.OnClickListener {
         ViewGroup content = mContext.findViewById(android.R.id.content);
 
         mFloatingLayout = LayoutInflater.from(mContext).inflate(R.layout.dy_scene_foating_box_hint_layout,null,false);
-        LinearLayout.LayoutParams layoutParams=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        layoutParams.gravity= Gravity.CENTER_HORIZONTAL|Gravity.TOP;
+        FrameLayout.LayoutParams layoutParams=  new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+        layoutParams.gravity= mGravity;
         mFloatingLayout.setLayoutParams(layoutParams);
-
         //线性布局
-        LinearLayout rootView = new LinearLayout(mContext);
-        rootView.setOrientation(LinearLayout.VERTICAL);
-
+        mRootView = new FrameLayout(mContext);
         //添加到根布局
-        rootView.addView(mFloatingLayout);
+        mRootView.addView(mFloatingLayout);
         //添加View
-        content.addView(rootView);
-        initListener();
+        content.addView(mRootView);
 
+        initListener();
     }
 
     private void initListener(){
@@ -83,6 +85,7 @@ public class FloatingViewManager implements View.OnClickListener {
             ActivityStack.finishActivity(FloatingBroadActivity.class.getName());
         }else {
         Intent intent=new Intent(mContext,FloatingBroadActivity.class);
+        intent.putExtra("className",mContext.getClass().getName());
             mContext.startActivity(intent);
         }
     }
@@ -93,31 +96,19 @@ public class FloatingViewManager implements View.OnClickListener {
 
     /**
      * 设置浮窗位置
-     * @param location 0 1 2 3 4  0上中   1左上  2 右上  3下左 4 下右
      * @return
      */
     public void setFloatingGravity(int location){
-        LinearLayout.LayoutParams layoutParams=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        int gravity=0;
+
         switch (location){
             case 0:
-                gravity=Gravity.CENTER_HORIZONTAL|Gravity.TOP;
+                mGravity=Gravity.CENTER_HORIZONTAL|Gravity.TOP;
                 break;
             case 1:
-                gravity=Gravity.LEFT|Gravity.TOP;
-                break;
-            case 2:
-                gravity=Gravity.RIGHT|Gravity.TOP;
-                break;
-            case 3:
-                gravity=Gravity.LEFT|Gravity.BOTTOM;
-                break;
-            case 4:
-                gravity=Gravity.RIGHT|Gravity.BOTTOM;
+                mGravity=Gravity.BOTTOM|Gravity.CENTER;
                 break;
         }
-        layoutParams.gravity=gravity;
-        mFloatingLayout.setLayoutParams(layoutParams);
+        initFloatingButton();
     }
 
     public void showFloating() {

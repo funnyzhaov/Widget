@@ -6,10 +6,15 @@ import android.content.Context;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Stack;
 
+import inc.dailyyoga.widget.bean.AysItem;
 import inc.dailyyoga.widget.bean.HttpItem;
 import inc.dailyyoga.widget.cache.SpHelper;
 import inc.dailyyoga.widget.exception.SceneException;
@@ -42,6 +47,7 @@ public class SceneManager {
 
     //Air View
     private FloatingViewManager mFloatingViewManager;
+    private static Stack<FloatingViewManager> mFloatingViewStack = new Stack<>();
 
     //modify
     private String mModifyClassName;
@@ -62,6 +68,10 @@ public class SceneManager {
 
     //first key
     private String mFirstKey;
+
+
+    //统计
+    private List<AysItem> mAysList=new ArrayList<>();
 
 
     private SceneManager() {
@@ -97,7 +107,8 @@ public class SceneManager {
 
     /**
      * 设置缓存url类的信息
-     * @param cachedUrlClass 二次缓存url的类
+     *
+     * @param cachedUrlClass     二次缓存url的类
      * @param cachedUrlFiledName 二次缓存url的变量名
      * @return
      */
@@ -125,8 +136,8 @@ public class SceneManager {
             list.add(httpItem);
         }
         mHttpManagerMap.put(key, list);
-        if (mFirstKey==null){
-            mFirstKey=key;
+        if (mFirstKey == null) {
+            mFirstKey = key;
         }
         return this;
     }
@@ -151,9 +162,9 @@ public class SceneManager {
             } catch (SceneException e) {
                 e.printStackTrace();
             }
-        }else {
+        } else {
             //默认第一次存储第一个环境
-            SpHelper.getSpHelper().putStringValue(HTTP_SCENE_KEY,mFirstKey).doCommit();
+            SpHelper.getSpHelper().putStringValue(HTTP_SCENE_KEY, mFirstKey).doCommit();
             mCacheKeyName = mFirstKey;
         }
     }
@@ -201,11 +212,12 @@ public class SceneManager {
 
     /**
      * 改变url 全景生效
+     *
      * @param sceneKey 场景Key
      */
     public void changeHttpUrlAll(String sceneKey) throws SceneException {
-        if (mCachedUrlClassName==null || "".equals(mCachedUrlClassName)
-                || mCachedUrlFiledName==null || "".equals(mCachedUrlFiledName)){
+        if (mCachedUrlClassName == null || "".equals(mCachedUrlClassName)
+                || mCachedUrlFiledName == null || "".equals(mCachedUrlFiledName)) {
             throw new SceneException("请调用setCachedUrlClass设置自定义网络库的信息");
         }
         List<HttpItem> httpManagerGroup = mHttpManagerMap.get(sceneKey);
@@ -219,9 +231,9 @@ public class SceneManager {
             Object object = constructor.newInstance();
             Field urlFiled = clz.getDeclaredField(mCachedUrlFiledName);
             urlFiled.setAccessible(true);
-            urlFiled.set(object, httpManagerGroup.get(0).getUrl()+"/");
-            changeHttpUrlBase(sceneKey);
+            urlFiled.set(object, httpManagerGroup.get(0).getUrl() + "/");
             SpHelper.getSpHelper().putStringValue(HTTP_SCENE_KEY, sceneKey).doCommit();
+            mCacheKeyName=sceneKey;
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (NoSuchFieldException e) {
@@ -234,20 +246,8 @@ public class SceneManager {
             e.printStackTrace();
         } catch (InvocationTargetException e) {
             e.printStackTrace();
-        } catch (SceneException e){
-            e.printStackTrace();
         }
 
-    }
-
-    /**
-     * 改变url 重启后生效
-     *
-     * @param sceneKey 场景key
-     */
-    public void changeHttpResetApp(String sceneKey) {
-        SpHelper.getSpHelper().putStringValue(HTTP_SCENE_KEY, sceneKey).doCommit();
-        System.exit(0);
     }
 
     /**
@@ -258,9 +258,9 @@ public class SceneManager {
      */
     public void createFloatingView(Activity baseActivity) {
         //浮窗View
-        if (mFloatingViewManager == null) {
-            mFloatingViewManager = new FloatingViewManager(baseActivity);
-        }
+        mFloatingViewManager = new FloatingViewManager(baseActivity);
+        mFloatingViewManager.setFloatingGravity(0);
+        mFloatingViewStack.push(mFloatingViewManager);
     }
 
     /**
@@ -271,52 +271,68 @@ public class SceneManager {
      */
     public void createFloatingView(Activity baseActivity, int location) {
         //浮窗View
-        if (mFloatingViewManager == null) {
-            mFloatingViewManager = new FloatingViewManager(baseActivity);
-            mFloatingViewManager.setFloatingGravity(location);
-
-        }
+        mFloatingViewManager = new FloatingViewManager(baseActivity);
+        mFloatingViewManager.setFloatingGravity(location);
+        mFloatingViewStack.push(mFloatingViewManager);
     }
 
     /**
      * 显示Floating
      */
-    public void showFloatingView() {
-        if (mFloatingViewManager == null) {
-            return;
+    public void showFloatingView(Activity activity) {
+        for (FloatingViewManager floatingViewManager : mFloatingViewStack) {
+            if (floatingViewManager.getMActivity().getClass().getName().equals(activity.getClass().getName())) {
+                floatingViewManager.showFloating();
+            }
         }
-        mFloatingViewManager.showFloating();
     }
 
-    public void hideFloatingView() {
-        if (mFloatingViewManager == null) {
-            return;
+    public void hideFloatingView(Activity activity) {
+        Iterator<FloatingViewManager> iterator=mFloatingViewStack.iterator();
+        while (iterator.hasNext()){
+            FloatingViewManager floatingViewManager=iterator.next();
+            if (floatingViewManager.getMActivity().getClass().getName().equals(activity.getClass().getName())) {
+                floatingViewManager.hideFloating();
+                iterator.remove();
+            }
         }
-        mFloatingViewManager.hideFloating();
     }
 
+    public void hideFloatingView(String activityClassName) {
+
+        Iterator<FloatingViewManager> iterator=mFloatingViewStack.iterator();
+        while (iterator.hasNext()){
+            FloatingViewManager floatingViewManager=iterator.next();
+            if (floatingViewManager.getMActivity().getClass().getName().equals(activityClassName)) {
+                floatingViewManager.hideFloating();
+                iterator.remove();
+            }
+        }
+    }
 
     /**
-     * 设置Floating位置
-     *
-     * @param location
+     * 添加埋点信息
      */
-    public void setFloatingGravity(int location) {
-        if (mFloatingViewManager == null) {
-            return;
+    public void addAysInfo(String eventName,String info){
+        if (mAysList.size()>10){
+            mAysList.remove(0);
         }
-        mFloatingViewManager.setFloatingGravity(location);
+        //存储事件时间  名称 信息 到事件缓存中
+        AysItem aysItem=new AysItem();
+
+        long currentTime = System.currentTimeMillis();
+        SimpleDateFormat formatter = new SimpleDateFormat("HH时mm分ss秒");
+        Date date = new Date(currentTime);
+        String sim = formatter.format(date);
+
+        aysItem.setAysTime(sim);
+        aysItem.setAysEventName(eventName);
+        aysItem.setAysEventInfo(info);
+        mAysList.add(aysItem);
     }
 
-
-
-    /*
-        事件埋点功能
-     */
-
-    public void openAysEvent(){
-
+    public List<AysItem> getEventList(){
+        return mAysList;
     }
-
 
 }

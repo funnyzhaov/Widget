@@ -3,7 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:layout_marginBottom="20dp"
     android:background="#ffffff"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -21,7 +20,7 @@
             android:textColor="#616161"
             android:textSize="14sp"
             android:layout_width="match_parent"
-            android:layout_height="30dp" />
+            android:layout_height="40dp" />
         <ImageView
             android:id="@+id/iv_arrow"
             android:visibility="gone"
@@ -36,26 +35,11 @@
         android:padding="2dp"
         android:layout_gravity="center"
         android:id="@+id/tv_scene_change"
-        android:text="1.静默切换"
+        android:text="点击切换"
+        android:background="@drawable/dy_scene_net_button_bg"
         android:gravity="left|center_vertical"
         android:textColor="#212121"
         android:textSize="14sp"
         android:layout_width="match_parent"
-        android:layout_height="40dp" />
-    <View
-        android:background="#fafafa"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"/>
-
-    <TextView
-        android:padding="2dp"
-        android:layout_gravity="center"
-        android:id="@+id/tv_scene_change_reset"
-        android:text="2.重启切换（点击应用关闭）"
-        android:gravity="left|center_vertical"
-        android:textColor="#212121"
-        android:textSize="14sp"
-        android:layout_width="match_parent"
-        android:layout_height="40dp" />
-
+        android:layout_height="50dp" />
 </LinearLayout>

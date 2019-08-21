@@ -11,6 +11,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".view.FloatingBroadActivity"/>
         <activity android:name=".view.NetChangeBroadActivity"/>
+        <activity android:name=".view.AysBroadActivity"/>
     </application>
 
 </manifest>

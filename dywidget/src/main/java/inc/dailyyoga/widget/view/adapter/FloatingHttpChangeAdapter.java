@@ -4,11 +4,13 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,6 +83,7 @@ public class FloatingHttpChangeAdapter extends RecyclerView.Adapter<FloatingHttp
             public void onClick(View v) {
                 try {
                     SceneManager.getInstance().changeHttpUrlAll(mSceneKeyList.get(position).getKey());
+                    Toast.makeText(mContext,"切换至"+mSceneKeyList.get(position).getKey(),Toast.LENGTH_SHORT).show();
                 } catch (SceneException e) {
                     e.printStackTrace();
                 }
@@ -89,12 +92,6 @@ public class FloatingHttpChangeAdapter extends RecyclerView.Adapter<FloatingHttp
                 }
                 mSceneKeyList.get(position).setSelect(true);
                 notifyDataSetChanged();
-            }
-        });
-        httpHolder.mRestChange.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SceneManager.getInstance().changeHttpResetApp(mSceneKeyList.get(position).getKey());
             }
         });
     }
@@ -108,14 +105,12 @@ public class FloatingHttpChangeAdapter extends RecyclerView.Adapter<FloatingHttp
         private TextView mScene;
         private TextView mChange;
         private ImageView mArrow;
-        private TextView mRestChange;
 
         public HttpHolder(@NonNull View itemView) {
             super(itemView);
             mScene=itemView.findViewById(R.id.tv_scene);
             mChange=itemView.findViewById(R.id.tv_scene_change);
             mArrow=itemView.findViewById(R.id.iv_arrow);
-            mRestChange=itemView.findViewById(R.id.tv_scene_change_reset);
         }
     }
 }
