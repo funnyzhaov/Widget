@@ -45,10 +45,11 @@ public class SceneManager {
 
     private static SceneManager mInstance; //单例
 
-    //Air View
+    //调试盒子
     private FloatingViewManager mFloatingViewManager;
     private static Stack<FloatingViewManager> mFloatingViewStack = new Stack<>();
 
+    /*------------------------网络切换---------------------*/
     //modify
     private String mModifyClassName;
     private List<String> mModifyFiledNameList;
@@ -60,6 +61,8 @@ public class SceneManager {
 
     //scenes
     private HashMap<String, List<HttpItem>> mHttpManagerMap;
+    //场景key
+    private List<String> mKeyArray;
 
     //net cached class
     private String mCachedUrlClassName;
@@ -69,9 +72,14 @@ public class SceneManager {
     //first key
     private String mFirstKey;
 
+    /*------------------------网络切换---------------------*/
 
+
+    /*------------------------事件统计---------------------*/
     //统计
     private List<AysItem> mAysList=new ArrayList<>();
+
+    /*------------------------事件统计---------------------*/
 
 
     private SceneManager() {
@@ -95,7 +103,6 @@ public class SceneManager {
      */
     public SceneManager setSceneCount(String managerClassName, int count, String... filedName) {
         mModifyClassName = managerClassName;
-
         mHttpManagerMap = new HashMap<>(count);
 
         mModifyFiledNameList = new ArrayList<>(filedName.length);
@@ -139,6 +146,11 @@ public class SceneManager {
         if (mFirstKey == null) {
             mFirstKey = key;
         }
+
+        if (mKeyArray==null){
+            mKeyArray=new ArrayList<>();
+        }
+        mKeyArray.add(key);
         return this;
     }
 
@@ -167,15 +179,19 @@ public class SceneManager {
             SpHelper.getSpHelper().putStringValue(HTTP_SCENE_KEY, mFirstKey).doCommit();
             mCacheKeyName = mFirstKey;
         }
+
     }
 
     public String getCurrentScene() {
         return mCacheKeyName;
     }
 
-
     public HashMap<String, List<HttpItem>> getHttpMap() {
         return mHttpManagerMap;
+    }
+
+    public List<String> getSceneKeyArray(){
+        return mKeyArray;
     }
 
     /**
