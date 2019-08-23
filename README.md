@@ -10,6 +10,19 @@ v1.0
 
 目前没有放到jcenter,只能clone，然后导入到自己的工程
 
+### 使用效果
+
+- 盒子展示
+
+![](https://github.com/funnyzhaov/Widget/blob/master/sreenshot/1.jpg)
+
+- 盒子面板
+
+![](https://github.com/funnyzhaov/Widget/blob/master/sreenshot/2.jpg)
+
+- 网络切换
+
+![](https://github.com/funnyzhaov/Widget/blob/master/sreenshot/3.jpg)
 
 ### 如何使用
 
