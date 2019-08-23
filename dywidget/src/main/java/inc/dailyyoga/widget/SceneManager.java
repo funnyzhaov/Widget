@@ -2,6 +2,7 @@ package inc.dailyyoga.widget;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.annotation.NonNull;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -69,6 +70,8 @@ public class SceneManager {
 
     private String mCachedUrlFiledName;
 
+    private boolean hasCachedClass=false;
+
     //first key
     private String mFirstKey;
 
@@ -101,7 +104,7 @@ public class SceneManager {
      * @param count            场景个数
      * @param filedName        每一个场景下 不同作用的变量名
      */
-    public SceneManager setSceneCount(String managerClassName, int count, String... filedName) {
+    public SceneManager setSceneCount(@NonNull String managerClassName, int count, String... filedName) {
         mModifyClassName = managerClassName;
         mHttpManagerMap = new HashMap<>(count);
 
@@ -122,6 +125,7 @@ public class SceneManager {
     public SceneManager setCachedUrlClass(String cachedUrlClass, String cachedUrlFiledName) {
         mCachedUrlClassName = cachedUrlClass;
         mCachedUrlFiledName = cachedUrlFiledName;
+        hasCachedClass=true;
         return this;
     }
 
@@ -131,10 +135,7 @@ public class SceneManager {
      * @param key 场景名
      * @param url url...
      */
-    public SceneManager addScenesUrl(String key, String... url) throws SceneException {
-        if (mModifyClassName == null) {
-            throw new SceneException("请确保在APP中执行了setSceneCount");
-        }
+    public SceneManager addScenesUrl(String key, String... url){
         List<HttpItem> list = new ArrayList<>();
         for (int j = 0; j < mModifyFiledNameList.size(); j++) {
             HttpItem httpItem = new HttpItem();
@@ -227,15 +228,41 @@ public class SceneManager {
     }
 
     /**
-     * 改变url 全景生效
-     *
+     * 改变url
      * @param sceneKey 场景Key
      */
-    public void changeHttpUrlAll(String sceneKey) throws SceneException {
+    public void changeHttpUrl(String sceneKey) {
+
+        if (hasCachedClass){
+            try {
+                changeHttpUrlAll(sceneKey);
+            } catch (SceneException e) {
+                e.printStackTrace();
+            }
+        }else {
+            try {
+                changeHttpUrlBase(sceneKey);
+                if (mUrlInitListener!=null){
+                    mUrlInitListener.onRestartInit();
+                }
+            } catch (SceneException e) {
+                e.printStackTrace();
+            }
+        }
+
+        //修改存储的场景，重新初始化应用生效或执行自定义生效方法
+        SpHelper.getSpHelper().putStringValue(HTTP_SCENE_KEY, sceneKey).doCommit();
+        mCacheKeyName=sceneKey;
+
+    }
+
+    private void changeHttpUrlAll(String sceneKey) throws SceneException{
+        //判断是否设置了缓存类
         if (mCachedUrlClassName == null || "".equals(mCachedUrlClassName)
                 || mCachedUrlFiledName == null || "".equals(mCachedUrlFiledName)) {
             throw new SceneException("请调用setCachedUrlClass设置自定义网络库的信息");
         }
+        //修改缓存类
         List<HttpItem> httpManagerGroup = mHttpManagerMap.get(sceneKey);
         if (httpManagerGroup == null || httpManagerGroup.size() == 0) {
             throw new SceneException("HttpManager数据异常，请检查初始化方法是否传入了null");
@@ -247,9 +274,11 @@ public class SceneManager {
             Object object = constructor.newInstance();
             Field urlFiled = clz.getDeclaredField(mCachedUrlFiledName);
             urlFiled.setAccessible(true);
-            urlFiled.set(object, httpManagerGroup.get(0).getUrl() + "/");
-            SpHelper.getSpHelper().putStringValue(HTTP_SCENE_KEY, sceneKey).doCommit();
-            mCacheKeyName=sceneKey;
+            if (httpManagerGroup.get(0).getUrl().lastIndexOf("/")==httpManagerGroup.get(0).getUrl().length()-1){
+                urlFiled.set(object, httpManagerGroup.get(0).getUrl());
+            }else {
+                urlFiled.set(object, httpManagerGroup.get(0).getUrl() + "/");
+            }
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (NoSuchFieldException e) {
@@ -265,6 +294,23 @@ public class SceneManager {
         }
 
     }
+
+    public interface ChangeUrlInitListener{
+        void onRestartInit();
+    }
+    private ChangeUrlInitListener mUrlInitListener;
+
+    /**
+     * 设置网络初始化监听
+     * @param listener
+     * @return
+     */
+    public SceneManager setChangeUrlInitListener(ChangeUrlInitListener listener){
+        mUrlInitListener=listener;
+        return this;
+    }
+
+
 
     /**
      * 初始化FloatingView

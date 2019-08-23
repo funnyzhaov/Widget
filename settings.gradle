@@ -1,1 +1,1 @@
-include ':dywidget'
+include ':dywidget', ':app'

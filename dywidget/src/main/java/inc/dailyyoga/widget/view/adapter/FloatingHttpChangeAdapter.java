@@ -41,20 +41,21 @@ import inc.dailyyoga.widget.exception.SceneException;
 public class FloatingHttpChangeAdapter extends RecyclerView.Adapter<FloatingHttpChangeAdapter.HttpHolder> {
 
     private LayoutInflater mInflater;
-    private List<String> mKeyList=new ArrayList<>();
+    private List<String> mKeyList = new ArrayList<>();
     private Context mContext;
-    private List<SceneKey> mSceneKeyList=new ArrayList<>();
-    public FloatingHttpChangeAdapter(Context context, List<String> keys){
-        mContext=context;
-        mInflater=LayoutInflater.from(context);
+    private List<SceneKey> mSceneKeyList = new ArrayList<>();
+
+    public FloatingHttpChangeAdapter(Context context, List<String> keys) {
+        mContext = context;
+        mInflater = LayoutInflater.from(context);
         mKeyList.clear();
         mKeyList.addAll(keys);
-        String currentScene=SceneManager.getInstance().getCurrentScene();
+        String currentScene = SceneManager.getInstance().getCurrentScene();
 
-        for (String key: mKeyList) {
-            SceneKey sceneKey=new SceneKey();
+        for (String key : mKeyList) {
+            SceneKey sceneKey = new SceneKey();
             sceneKey.setKey(key);
-            if (key.equals(currentScene)){
+            if (key.equals(currentScene)) {
                 sceneKey.setSelect(true);
             }
             mSceneKeyList.add(sceneKey);
@@ -65,29 +66,26 @@ public class FloatingHttpChangeAdapter extends RecyclerView.Adapter<FloatingHttp
     @Override
     public HttpHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         HttpHolder httpHolder;
-        View view=mInflater.inflate(R.layout.floating_http_change_item,viewGroup,false);
-        httpHolder=new HttpHolder(view);
+        View view = mInflater.inflate(R.layout.floating_http_change_item, viewGroup, false);
+        httpHolder = new HttpHolder(view);
         return httpHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull final HttpHolder httpHolder, final int position) {
-        if (mSceneKeyList.get(position).isSelect()){
+        if (mSceneKeyList.get(position).isSelect()) {
             httpHolder.mArrow.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             httpHolder.mArrow.setVisibility(View.GONE);
         }
         httpHolder.mScene.setText(mSceneKeyList.get(position).getKey());
         httpHolder.mChange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    SceneManager.getInstance().changeHttpUrlAll(mSceneKeyList.get(position).getKey());
-                    Toast.makeText(mContext,"切换至"+mSceneKeyList.get(position).getKey(),Toast.LENGTH_SHORT).show();
-                } catch (SceneException e) {
-                    e.printStackTrace();
-                }
-                for (SceneKey sceneKey: mSceneKeyList) {
+                SceneManager.getInstance().changeHttpUrl(mSceneKeyList.get(position).getKey());
+                Toast.makeText(mContext, "切换至" + mSceneKeyList.get(position).getKey(), Toast.LENGTH_SHORT).show();
+
+                for (SceneKey sceneKey : mSceneKeyList) {
                     sceneKey.setSelect(false);
                 }
                 mSceneKeyList.get(position).setSelect(true);
@@ -101,16 +99,16 @@ public class FloatingHttpChangeAdapter extends RecyclerView.Adapter<FloatingHttp
         return mSceneKeyList.size();
     }
 
-    static class HttpHolder extends RecyclerView.ViewHolder{
+    static class HttpHolder extends RecyclerView.ViewHolder {
         private TextView mScene;
         private TextView mChange;
         private ImageView mArrow;
 
         public HttpHolder(@NonNull View itemView) {
             super(itemView);
-            mScene=itemView.findViewById(R.id.tv_scene);
-            mChange=itemView.findViewById(R.id.tv_scene_change);
-            mArrow=itemView.findViewById(R.id.iv_arrow);
+            mScene = itemView.findViewById(R.id.tv_scene);
+            mChange = itemView.findViewById(R.id.tv_scene_change);
+            mArrow = itemView.findViewById(R.id.iv_arrow);
         }
     }
 }
