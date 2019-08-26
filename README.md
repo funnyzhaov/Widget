@@ -8,7 +8,6 @@ v1.0
 
 功能：1.网络环境切换  2.埋点事件统计显示
 
-目前没有放到jcenter,只能clone，然后导入到自己的工程
 
 ### 使用效果
 
@@ -28,7 +27,13 @@ v1.0
 
 ```
 1.build.gradle(app) 中
-implementation project(':dywidget')
+allprojects {
+    repositories {
+        maven { url "https://raw.githubusercontent.com/funnyzhaov/Widget/master" }
+    }
+}
+
+implementation 'inc.dailyyoga.widget'
 
 2.Application中初始化
 public class TestApp extends Application {
