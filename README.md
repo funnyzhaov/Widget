@@ -28,7 +28,7 @@ v1.0
 ```
 1.build.gradle(app) 中
 
-implementation 'com.funnyzhao:widget:1.0.0'
+implementation 'com.funnyzhao:debugbox:1.0.0'
 
 2.Application中初始化
 public class TestApp extends Application {
