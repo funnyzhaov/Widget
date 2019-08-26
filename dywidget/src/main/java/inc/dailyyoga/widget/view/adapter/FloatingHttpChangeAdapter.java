@@ -1,10 +1,8 @@
 package inc.dailyyoga.widget.view.adapter;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import inc.dailyyoga.widget.R;
-import inc.dailyyoga.widget.SceneManager;
-import inc.dailyyoga.widget.exception.SceneException;
+import inc.dailyyoga.widget.FloatingBoxManager;
 
 /*
 
@@ -50,7 +47,7 @@ public class FloatingHttpChangeAdapter extends RecyclerView.Adapter<FloatingHttp
         mInflater = LayoutInflater.from(context);
         mKeyList.clear();
         mKeyList.addAll(keys);
-        String currentScene = SceneManager.getInstance().getCurrentScene();
+        String currentScene = FloatingBoxManager.getInstance().getCurrentScene();
 
         for (String key : mKeyList) {
             SceneKey sceneKey = new SceneKey();
@@ -82,7 +79,7 @@ public class FloatingHttpChangeAdapter extends RecyclerView.Adapter<FloatingHttp
         httpHolder.mChange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SceneManager.getInstance().changeHttpUrl(mSceneKeyList.get(position).getKey());
+                FloatingBoxManager.getInstance().changeHttpUrl(mSceneKeyList.get(position).getKey());
                 Toast.makeText(mContext, "切换至" + mSceneKeyList.get(position).getKey(), Toast.LENGTH_SHORT).show();
 
                 for (SceneKey sceneKey : mSceneKeyList) {

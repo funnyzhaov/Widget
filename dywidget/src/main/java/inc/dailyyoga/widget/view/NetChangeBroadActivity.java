@@ -5,11 +5,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import inc.dailyyoga.widget.R;
-import inc.dailyyoga.widget.SceneManager;
+import inc.dailyyoga.widget.FloatingBoxManager;
 import inc.dailyyoga.widget.view.adapter.FloatingHttpChangeAdapter;
 
 public class NetChangeBroadActivity extends DyBaseActivity {
@@ -27,7 +24,7 @@ public class NetChangeBroadActivity extends DyBaseActivity {
     }
 
     private void initHttpAdapter(){
-        mHttpChangeAdapter=new FloatingHttpChangeAdapter(this,SceneManager.getInstance().getSceneKeyArray());
+        mHttpChangeAdapter=new FloatingHttpChangeAdapter(this, FloatingBoxManager.getInstance().getSceneKeyArray());
         LinearLayoutManager layoutManager=new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mHttpChangeView.setLayoutManager(layoutManager);

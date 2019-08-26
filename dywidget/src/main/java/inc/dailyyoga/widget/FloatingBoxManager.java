@@ -40,11 +40,11 @@ import inc.dailyyoga.widget.view.FloatingViewManager;
  * -----------------------------------------------------------------
 
  */
-public class SceneManager {
-    private String TAG = SceneManager.class.getSimpleName();
+public class FloatingBoxManager {
+    private String TAG = FloatingBoxManager.class.getSimpleName();
     private Context mContext;
 
-    private static SceneManager mInstance; //单例
+    private static FloatingBoxManager mInstance; //单例
 
     //调试盒子
     private FloatingViewManager mFloatingViewManager;
@@ -85,13 +85,13 @@ public class SceneManager {
     /*------------------------事件统计---------------------*/
 
 
-    private SceneManager() {
+    private FloatingBoxManager() {
     }
 
-    public static SceneManager getInstance() {
+    public static FloatingBoxManager getInstance() {
         if (mInstance == null) {
-            synchronized (SceneManager.class) {
-                mInstance = new SceneManager();
+            synchronized (FloatingBoxManager.class) {
+                mInstance = new FloatingBoxManager();
             }
         }
         return mInstance;
@@ -104,7 +104,7 @@ public class SceneManager {
      * @param count            场景个数
      * @param filedName        每一个场景下 不同作用的变量名
      */
-    public SceneManager setSceneCount(@NonNull String managerClassName, int count, String... filedName) {
+    public FloatingBoxManager setSceneCount(@NonNull String managerClassName, int count, String... filedName) {
         mModifyClassName = managerClassName;
         mHttpManagerMap = new HashMap<>(count);
 
@@ -122,7 +122,7 @@ public class SceneManager {
      * @param cachedUrlFiledName 二次缓存url的变量名
      * @return
      */
-    public SceneManager setCachedUrlClass(String cachedUrlClass, String cachedUrlFiledName) {
+    public FloatingBoxManager setCachedUrlClass(String cachedUrlClass, String cachedUrlFiledName) {
         mCachedUrlClassName = cachedUrlClass;
         mCachedUrlFiledName = cachedUrlFiledName;
         hasCachedClass=true;
@@ -135,7 +135,7 @@ public class SceneManager {
      * @param key 场景名
      * @param url url...
      */
-    public SceneManager addScenesUrl(String key, String... url){
+    public FloatingBoxManager addScenesUrl(String key, String... url){
         List<HttpItem> list = new ArrayList<>();
         for (int j = 0; j < mModifyFiledNameList.size(); j++) {
             HttpItem httpItem = new HttpItem();
@@ -305,7 +305,7 @@ public class SceneManager {
      * @param listener
      * @return
      */
-    public SceneManager setChangeUrlInitListener(ChangeUrlInitListener listener){
+    public FloatingBoxManager setChangeUrlInitListener(ChangeUrlInitListener listener){
         mUrlInitListener=listener;
         return this;
     }

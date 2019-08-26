@@ -8,7 +8,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import inc.dailyyoga.widget.R;
-import inc.dailyyoga.widget.SceneManager;
+import inc.dailyyoga.widget.FloatingBoxManager;
 
 public class FloatingBroadActivity extends DyBaseActivity implements View.OnClickListener {
     //关闭
@@ -43,7 +43,7 @@ public class FloatingBroadActivity extends DyBaseActivity implements View.OnClic
     public void onClick(View v) {
         if (v.getId()==R.id.iv_close){
             finish();
-            SceneManager.getInstance().hideFloatingView(mFromClassName);
+            FloatingBoxManager.getInstance().hideFloatingView(mFromClassName);
         }
         if (v.getId()==R.id.f1){
             Intent intent=new Intent(this,NetChangeBroadActivity.class);
