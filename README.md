@@ -27,13 +27,8 @@ v1.0
 
 ```
 1.build.gradle(app) 中
-allprojects {
-    repositories {
-        maven { url "https://raw.githubusercontent.com/funnyzhaov/Widget/master" }
-    }
-}
 
-implementation 'inc.dailyyoga.widget'
+implementation 'com.funnyzhao:widget:1.0.0'
 
 2.Application中初始化
 public class TestApp extends Application {
@@ -74,7 +69,5 @@ public class TestApp extends Application {
         SceneManager.getInstance().showFloatingView(this);
 ```
 
-### 说明
 
-欢迎加入一起完善调试盒子，做一个可以在任意项目都方便集成使用的调试盒子
 
