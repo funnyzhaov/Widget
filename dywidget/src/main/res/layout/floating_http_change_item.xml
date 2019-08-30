@@ -42,4 +42,9 @@
         android:textSize="14sp"
         android:layout_width="match_parent"
         android:layout_height="50dp" />
+    <TextView
+        android:text="开启功能1支持"
+        android:background="@drawable/dy_scene_net_button_bg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 </LinearLayout>

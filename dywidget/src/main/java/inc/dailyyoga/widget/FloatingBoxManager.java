@@ -3,6 +3,7 @@ package inc.dailyyoga.widget;
 import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.util.SparseArray;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -75,6 +76,11 @@ public class FloatingBoxManager {
     //first key
     private String mFirstKey;
 
+    private HashMap<String,String> mHeaderMap;
+    //请求头变量名
+    private String mCachedHeaderFiledName;
+    //请求头生效场景名
+    private String mCachedHeaderEffectSceneName;
     /*------------------------网络切换---------------------*/
 
 
@@ -152,6 +158,39 @@ public class FloatingBoxManager {
             mKeyArray=new ArrayList<>();
         }
         mKeyArray.add(key);
+        return this;
+    }
+
+    /**
+     * 设置header生效时机
+     * @param key 场景名
+     * @return
+     */
+    public FloatingBoxManager setHeaderEffectiveScene(String key){
+        mCachedHeaderEffectSceneName=key;
+        return this;
+    }
+
+    /**
+     * 添加请求头
+     * @param key key
+     * @param value value
+     */
+    public FloatingBoxManager addHeader(String cachedHeaderFiledName,String key,String value){
+        if (mHeaderMap==null){
+            mHeaderMap=new HashMap<>();
+        }
+        mHeaderMap.put(key,value);
+        return this;
+    }
+
+    /**
+     * 设置请求头变量名
+     * @param cachedHeaderFiledName 缓存类中保存header的变量
+     * @return
+     */
+    public FloatingBoxManager setHeaderCachedFiledName(String cachedHeaderFiledName ){
+        mCachedHeaderFiledName=cachedHeaderFiledName;
         return this;
     }
 

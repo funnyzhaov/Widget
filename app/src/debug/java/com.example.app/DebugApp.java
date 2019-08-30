@@ -40,6 +40,7 @@ public class DebugApp extends TestApp {
                     @Override
                     public void onRestartInit() {
                         //重新初始化Http
+
                     }
                 })
                 .startInitScene(this);
