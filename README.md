@@ -9,6 +9,20 @@ v1.0
 功能：1.网络环境切换  2.埋点事件统计显示
 
 
+### 使用效果
+
+- 盒子展示
+
+![](https://github.com/funnyzhaov/Widget/blob/master/sreenshot/1.jpg)
+
+- 盒子面板
+
+![](https://github.com/funnyzhaov/Widget/blob/master/sreenshot/2.jpg)
+
+- 网络切换
+
+![](https://github.com/funnyzhaov/Widget/blob/master/sreenshot/3.jpg)
+
 ### 如何使用
 
 ```
