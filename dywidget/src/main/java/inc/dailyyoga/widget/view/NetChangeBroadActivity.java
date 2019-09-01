@@ -24,7 +24,7 @@ public class NetChangeBroadActivity extends DyBaseActivity {
     }
 
     private void initHttpAdapter(){
-        mHttpChangeAdapter=new FloatingHttpChangeAdapter(this, FloatingBoxManager.getInstance().getSceneKeyArray());
+        mHttpChangeAdapter=new FloatingHttpChangeAdapter(this, FloatingBoxManager.getInstance().getSceneModelArray());
         LinearLayoutManager layoutManager=new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mHttpChangeView.setLayoutManager(layoutManager);

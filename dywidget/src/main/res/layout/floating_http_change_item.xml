@@ -43,8 +43,10 @@
         android:layout_width="match_parent"
         android:layout_height="50dp" />
     <TextView
-        android:text="开启功能1支持"
+        android:id="@+id/tv_open_header_effect"
+        tools:text="开启课程支持"
+        android:gravity="center_vertical"
         android:background="@drawable/dy_scene_net_button_bg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
 </LinearLayout>

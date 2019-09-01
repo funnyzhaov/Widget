@@ -3,11 +3,13 @@ package inc.dailyyoga.widget;
 import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.util.SparseArray;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,7 +19,9 @@ import java.util.List;
 import java.util.Stack;
 
 import inc.dailyyoga.widget.bean.AysItem;
+import inc.dailyyoga.widget.bean.HeaderModel;
 import inc.dailyyoga.widget.bean.HttpItem;
+import inc.dailyyoga.widget.bean.SceneModel;
 import inc.dailyyoga.widget.cache.SpHelper;
 import inc.dailyyoga.widget.exception.SceneException;
 import inc.dailyyoga.widget.view.FloatingViewManager;
@@ -63,9 +67,7 @@ public class FloatingBoxManager {
 
     //scenes
     private HashMap<String, List<HttpItem>> mHttpManagerMap;
-    //场景key
-    private List<String> mKeyArray;
-
+    private List<SceneModel> mSceneModel;
     //net cached class
     private String mCachedUrlClassName;
 
@@ -76,11 +78,12 @@ public class FloatingBoxManager {
     //first key
     private String mFirstKey;
 
-    private HashMap<String,String> mHeaderMap;
+    private List<HeaderModel> mHeaderList;
     //请求头变量名
     private String mCachedHeaderFiledName;
     //请求头生效场景名
     private String mCachedHeaderEffectSceneName;
+
     /*------------------------网络切换---------------------*/
 
 
@@ -90,6 +93,8 @@ public class FloatingBoxManager {
 
     /*------------------------事件统计---------------------*/
 
+    /*------------------------渠道信息---------------------*/
+    private String mChannelName;
 
     private FloatingBoxManager() {
     }
@@ -154,11 +159,110 @@ public class FloatingBoxManager {
             mFirstKey = key;
         }
 
-        if (mKeyArray==null){
-            mKeyArray=new ArrayList<>();
+        if (mSceneModel==null){
+            mSceneModel=new ArrayList<>();
         }
-        mKeyArray.add(key);
+        SceneModel sceneModel=new SceneModel();
+        sceneModel.setKey(key);
+        mSceneModel.add(sceneModel);
+
         return this;
+    }
+
+    /**
+     * 设置场景key--多个作用的url
+     *
+     * @param key 场景名
+     * @param url url...
+     */
+    private void addScenesUrl(String key, boolean supportHeader,String effectName,String... url){
+        List<HttpItem> list = new ArrayList<>();
+        for (int j = 0; j < mModifyFiledNameList.size(); j++) {
+            HttpItem httpItem = new HttpItem();
+            httpItem.setUrlFiledName(mModifyFiledNameList.get(j));
+            httpItem.setUrl(url[j]);
+            list.add(httpItem);
+        }
+        mHttpManagerMap.put(key, list);
+        if (mFirstKey == null) {
+            mFirstKey = key;
+        }
+
+
+        if (mSceneModel==null){
+            mSceneModel=new ArrayList<>();
+        }
+        SceneModel sceneModel=new SceneModel();
+        sceneModel.setKey(key);
+        sceneModel.setEffectName(effectName);
+
+        if (supportHeader){
+            sceneModel.setSupportHeader(true);
+        }
+        mSceneModel.add(sceneModel);
+    }
+
+    /**
+     * 添加包含生效请求头的场景
+     * @param key 场景名称
+     * @param cachedHeaderFiledName 缓存Header变量名
+     * @param supportEffectName 支持作用名称
+     * @param headers 请求头
+     * @param url 场景多url
+     * @return
+     */
+    public FloatingBoxManager addScene(String key,String cachedHeaderFiledName,String supportEffectName,List<HeaderModel> headers,String... url){
+        boolean isSupport=true;
+        if (!isHasCachedClass()){
+            isSupport=false;
+            try {
+                throw new SceneException("请调用setCachedUrlClass设置自定义网络库的信息");
+            } catch (SceneException e) {
+                e.printStackTrace();
+            }
+        }
+        addScenesUrl(key,isSupport,supportEffectName,url);
+        setHeaderEffectiveScene(key);
+        addHeader(headers);
+
+        return this;
+    }
+
+    /**
+     * 添加包含生效请求头的场景
+     * @param key 场景名称
+     * @param cachedHeaderFiledName 缓存Header变量名
+     * @param supportEffectName 支持作用名称
+     * @param headerKey 单个请求头参数
+     * @param headerValue 单个请求头值
+     * @param url 场景多url
+     * @return
+     */
+    public FloatingBoxManager addScene(String key,String cachedHeaderFiledName,String supportEffectName,String headerKey,String headerValue,String... url){
+
+        boolean isSupport=true;
+        if (!isHasCachedClass()){
+            try {
+                throw new SceneException("请调用setCachedUrlClass设置自定义网络库的信息");
+            } catch (SceneException e) {
+                e.printStackTrace();
+            }
+            isSupport=false;
+        }
+        mCachedHeaderFiledName=cachedHeaderFiledName;
+        addScenesUrl(key,isSupport,supportEffectName,url);
+        setHeaderEffectiveScene(key);
+        addHeader(headerKey,headerValue);
+        return this;
+    }
+
+    private boolean isHasCachedClass(){
+        //判断是否设置了缓存类
+        if (mCachedUrlClassName == null || "".equals(mCachedUrlClassName)
+                || mCachedUrlFiledName == null || "".equals(mCachedUrlFiledName)) {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -166,9 +270,8 @@ public class FloatingBoxManager {
      * @param key 场景名
      * @return
      */
-    public FloatingBoxManager setHeaderEffectiveScene(String key){
+    private void setHeaderEffectiveScene(String key){
         mCachedHeaderEffectSceneName=key;
-        return this;
     }
 
     /**
@@ -176,22 +279,24 @@ public class FloatingBoxManager {
      * @param key key
      * @param value value
      */
-    public FloatingBoxManager addHeader(String cachedHeaderFiledName,String key,String value){
-        if (mHeaderMap==null){
-            mHeaderMap=new HashMap<>();
+    private void addHeader(String key,String value){
+        if (mHeaderList==null){
+            mHeaderList=new ArrayList<>();
         }
-        mHeaderMap.put(key,value);
-        return this;
+        HeaderModel headerModel=new HeaderModel() ;
+        headerModel.setHeaderName(key);
+        headerModel.setHeaderValue(value);
+        mHeaderList.add(headerModel);
     }
 
     /**
-     * 设置请求头变量名
-     * @param cachedHeaderFiledName 缓存类中保存header的变量
-     * @return
+     * 添加请求头
      */
-    public FloatingBoxManager setHeaderCachedFiledName(String cachedHeaderFiledName ){
-        mCachedHeaderFiledName=cachedHeaderFiledName;
-        return this;
+    private void addHeader(List<HeaderModel> headers){
+        if (mHeaderList==null){
+            mHeaderList=new ArrayList<>();
+        }
+        mHeaderList.addAll(headers);
     }
 
 
@@ -230,8 +335,54 @@ public class FloatingBoxManager {
         return mHttpManagerMap;
     }
 
-    public List<String> getSceneKeyArray(){
-        return mKeyArray;
+    public List<SceneModel> getSceneModelArray(){
+        return mSceneModel;
+    }
+
+    /**
+     * 添加渠道信息
+     * @param name
+     * @return
+     */
+    public FloatingBoxManager addChannelName(String name){
+        mChannelName=name;
+        return this;
+    }
+
+    public String getChannelName(){
+        return mChannelName;
+    }
+    /**
+     * 开启请求头作用生效
+     */
+    public void openHeaderEffect(){
+        Class clz = null;
+        try {
+            clz = Class.forName(mCachedUrlClassName);
+            Field urlFiled = clz.getDeclaredField(mCachedHeaderFiledName);
+            Class headerClass=urlFiled.getType();
+            Object headerObj=headerClass.newInstance();
+            Log.d("HHHOOO",headerClass.getName());
+            Method[] methods = headerClass.getDeclaredMethods();
+            for (Method m : methods) {
+                if (m.getName().equals("put")){
+                    for (HeaderModel headerModel: mHeaderList) {
+                        m.invoke(headerObj,headerModel.getHeaderName(),headerModel.getHeaderValue());
+                    }
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -281,14 +432,15 @@ public class FloatingBoxManager {
         }else {
             try {
                 changeHttpUrlBase(sceneKey);
-                if (mUrlInitListener!=null){
-                    mUrlInitListener.onRestartInit();
-                }
             } catch (SceneException e) {
                 e.printStackTrace();
             }
         }
-
+        if (mUrlInitListener!=null){
+            SceneModel sceneModel=new SceneModel();
+            sceneModel.setKey(sceneKey);
+            mUrlInitListener.onRestartInit(mSceneModel.get(mSceneModel.indexOf(sceneModel)));
+        }
         //修改存储的场景，重新初始化应用生效或执行自定义生效方法
         SpHelper.getSpHelper().putStringValue(HTTP_SCENE_KEY, sceneKey).doCommit();
         mCacheKeyName=sceneKey;
@@ -335,7 +487,7 @@ public class FloatingBoxManager {
     }
 
     public interface ChangeUrlInitListener{
-        void onRestartInit();
+        void onRestartInit(SceneModel sceneModel);
     }
     private ChangeUrlInitListener mUrlInitListener;
 

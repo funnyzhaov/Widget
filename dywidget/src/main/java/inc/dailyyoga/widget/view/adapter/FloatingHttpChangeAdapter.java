@@ -15,6 +15,7 @@ import java.util.List;
 
 import inc.dailyyoga.widget.R;
 import inc.dailyyoga.widget.FloatingBoxManager;
+import inc.dailyyoga.widget.bean.SceneModel;
 
 /*
 
@@ -38,24 +39,21 @@ import inc.dailyyoga.widget.FloatingBoxManager;
 public class FloatingHttpChangeAdapter extends RecyclerView.Adapter<FloatingHttpChangeAdapter.HttpHolder> {
 
     private LayoutInflater mInflater;
-    private List<String> mKeyList = new ArrayList<>();
     private Context mContext;
-    private List<SceneKey> mSceneKeyList = new ArrayList<>();
+    private List<SceneModel> mSceneList = new ArrayList<>();
 
-    public FloatingHttpChangeAdapter(Context context, List<String> keys) {
+    public FloatingHttpChangeAdapter(Context context, List<SceneModel> scenes) {
         mContext = context;
         mInflater = LayoutInflater.from(context);
-        mKeyList.clear();
-        mKeyList.addAll(keys);
+        mSceneList.clear();
+        mSceneList.addAll(scenes);
         String currentScene = FloatingBoxManager.getInstance().getCurrentScene();
 
-        for (String key : mKeyList) {
-            SceneKey sceneKey = new SceneKey();
-            sceneKey.setKey(key);
-            if (key.equals(currentScene)) {
-                sceneKey.setSelect(true);
+        for (SceneModel sceneModel : mSceneList) {
+            if (sceneModel.getKey().equals(currentScene)) {
+                sceneModel.setSelect(true);
+                break;
             }
-            mSceneKeyList.add(sceneKey);
         }
     }
 
@@ -70,42 +68,69 @@ public class FloatingHttpChangeAdapter extends RecyclerView.Adapter<FloatingHttp
 
     @Override
     public void onBindViewHolder(@NonNull final HttpHolder httpHolder, final int position) {
-        if (mSceneKeyList.get(position).isSelect()) {
+        if (mSceneList.get(position).isSelect()) {
             httpHolder.mArrow.setVisibility(View.VISIBLE);
         } else {
             httpHolder.mArrow.setVisibility(View.GONE);
         }
-        httpHolder.mScene.setText(mSceneKeyList.get(position).getKey());
+        httpHolder.mScene.setText(mSceneList.get(position).getKey());
         httpHolder.mChange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FloatingBoxManager.getInstance().changeHttpUrl(mSceneKeyList.get(position).getKey());
-                Toast.makeText(mContext, "切换至" + mSceneKeyList.get(position).getKey(), Toast.LENGTH_SHORT).show();
+                FloatingBoxManager.getInstance().changeHttpUrl(mSceneList.get(position).getKey());
+                Toast.makeText(mContext, "切换至" + mSceneList.get(position).getKey(), Toast.LENGTH_SHORT).show();
 
-                for (SceneKey sceneKey : mSceneKeyList) {
-                    sceneKey.setSelect(false);
+                for (SceneModel sceneModel : mSceneList) {
+                    sceneModel.setSelect(false);
                 }
-                mSceneKeyList.get(position).setSelect(true);
+                mSceneList.get(position).setSelect(true);
                 notifyDataSetChanged();
+            }
+        });
+        if (mSceneList.get(position).isSupportHeader()){
+            httpHolder.mHeaderEffect.setVisibility(View.VISIBLE);
+        }else {
+            httpHolder.mHeaderEffect.setVisibility(View.GONE);
+            return;
+        }
+
+        if (!mSceneList.get(position).isOpenHeader()){
+            httpHolder.mHeaderEffect.setText("未开启 ["+mSceneList.get(position).getEffectName()+"] 支持");
+        }else {
+            httpHolder.mHeaderEffect.setText("已开启 ["+mSceneList.get(position).getEffectName()+"] 支持");
+        }
+        httpHolder.mHeaderEffect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //开启支持
+                if (mSceneList.get(position).isSupportHeader()){
+                    if (!mSceneList.get(position).isOpenHeader()){
+                        FloatingBoxManager.getInstance().openHeaderEffect();
+                        mSceneList.get(position).setOpenHeader(true);
+                        notifyDataSetChanged();
+                    }
+                }
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return mSceneKeyList.size();
+        return mSceneList.size();
     }
 
     static class HttpHolder extends RecyclerView.ViewHolder {
         private TextView mScene;
         private TextView mChange;
         private ImageView mArrow;
+        private TextView mHeaderEffect;//请求头作用支持
 
         public HttpHolder(@NonNull View itemView) {
             super(itemView);
             mScene = itemView.findViewById(R.id.tv_scene);
             mChange = itemView.findViewById(R.id.tv_scene_change);
             mArrow = itemView.findViewById(R.id.iv_arrow);
+            mHeaderEffect=itemView.findViewById(R.id.tv_open_header_effect);
         }
     }
 }

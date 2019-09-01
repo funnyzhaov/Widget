@@ -3,9 +3,11 @@ package inc.dailyyoga.widget.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import inc.dailyyoga.widget.R;
 import inc.dailyyoga.widget.FloatingBoxManager;
@@ -18,6 +20,8 @@ public class FloatingBroadActivity extends DyBaseActivity implements View.OnClic
     private FrameLayout mNetArrow;//网络
     private FrameLayout mAysArrow;//统计
 
+    private TextView mChannel;//渠道
+
     private String mFromClassName;
 
     @Override
@@ -27,6 +31,11 @@ public class FloatingBroadActivity extends DyBaseActivity implements View.OnClic
         mCloseTv=findViewById(R.id.iv_close);
         initListener();
         mFromClassName=getIntent().getStringExtra("className");
+        if (!TextUtils.isEmpty(FloatingBoxManager.getInstance().getChannelName())){
+            mChannel.setText(FloatingBoxManager.getInstance().getChannelName());
+        }else {
+            mChannel.setVisibility(View.GONE);
+        }
     }
 
 
@@ -34,6 +43,7 @@ public class FloatingBroadActivity extends DyBaseActivity implements View.OnClic
         //组件
         mNetArrow=findViewById(R.id.f1);
         mAysArrow=findViewById(R.id.f2);
+        mChannel=findViewById(R.id.tv_channel);
         mCloseTv.setOnClickListener(this);
         mNetArrow.setOnClickListener(this);
         mAysArrow.setOnClickListener(this);

@@ -2,9 +2,11 @@ package com.example.app;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import inc.dailyyoga.widget.FloatingBoxManager;
+import inc.dailyyoga.widget.bean.SceneModel;
 
 /*
 
@@ -30,20 +32,24 @@ public class DebugApp extends TestApp {
     @Override
     public void onCreate() {
         super.onCreate();
-        //无网络类保存url的信息
         FloatingBoxManager
                 .getInstance()
-                .setSceneCount(API.class.getName(), 2, "BASE_URL", "BASE_H5_URL")
+                .setSceneCount(API.class.getName(), 3, "BASE_URL", "BASE_H5_URL")
                 .addScenesUrl("测试环境", API.T_BASE_URL, API.T_BASE_H5_URL)
                 .addScenesUrl("正式环境", API.O_BASE_URL, API.O_BASE_H5_URL)
+                .setCachedUrlClass(OHttp.class.getName(),"mBaseUrl")
+                .addScene("特殊环境", "mHeader", "课程支持", "k","v",
+                        API.T_BASE_URL, API.T_BASE_H5_URL)
+                .addChannelName("华为") //添加渠道
                 .setChangeUrlInitListener(new FloatingBoxManager.ChangeUrlInitListener() {
                     @Override
-                    public void onRestartInit() {
-                        //重新初始化Http
-
+                    public void onRestartInit(SceneModel sceneModel) {
+                        Log.d("HHHOOO",sceneModel.toString());
                     }
                 })
                 .startInitScene(this);
+
+        //无网络类保存url的信息
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
             @Override
             public void onActivityCreated(Activity activity, Bundle savedInstanceState) {

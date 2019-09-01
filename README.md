@@ -41,13 +41,18 @@ public class TestApp extends Application {
                 .setSceneCount(API.class.getName(),2,"BASE_URL","BASE_H5_URL")
                 .addScenesUrl("测试环境",API.T_BASE_URL,API.T_BASE_H5_URL)
                 .addScenesUrl("正式环境",API.O_BASE_URL,API.O_BASE_H5_URL)
-                .setChangeUrlInitListener(new FloatingBoxManager.ChangeUrlInitListener() {
-                    @Override
-                    public void onRestartInit() {
-                        //重新初始化Http
-                    }
-                })
+                .setCachedUrlClass(OHttp.class.getName(),"mBaseUrl")//添加url缓存类信息
+                .addScene("特殊环境", "mHeader", "课程支持", "k","v",
+                                        API.T_BASE_URL, API.T_BASE_H5_URL)//场景支持请求头更改
+                 .setChangeUrlInitListener(new FloatingBoxManager.ChangeUrlInitListener() {
+                            @Override
+                            public void onRestartInit(SceneModel sceneModel) {
+                            //切换场景后初始化你的操作
+                            }
+                 })
+                .addChannelName("华为") //添加渠道
                 .startInitScene(this);
+
         //可传入网络类保存url的信息
         FloatingBoxManager
                 .getInstance()
