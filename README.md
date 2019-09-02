@@ -28,7 +28,7 @@ v1.0
 ```
 1.build.gradle(app) 中
 
-implementation 'inc.dailyyoga:debugbox:1.1.2'
+implementation 'com.dailyyoga:debugbox:1.0.0'
 
 2.Application中初始化
 public class TestApp extends Application {
