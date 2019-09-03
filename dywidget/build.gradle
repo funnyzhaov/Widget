@@ -41,7 +41,7 @@ publish{
 
     artifactId = 'boxhelper'//项目名称
 
-    publishVersion = '1.0.0'//版本号
+    publishVersion = '1.6.0'//版本号
 
     desc = '增加新的功能'//描述
 
