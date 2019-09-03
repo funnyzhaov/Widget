@@ -13,6 +13,7 @@ import java.util.List;
 
 import inc.dailyyoga.widget.R;
 import inc.dailyyoga.widget.bean.AysItem;
+import inc.dailyyoga.widget.util.JsonFormat;
 
 public class AysEventAdapter extends RecyclerView.Adapter<AysEventAdapter.EventAdapter> {
     private Context mContext;
@@ -40,7 +41,7 @@ public class AysEventAdapter extends RecyclerView.Adapter<AysEventAdapter.EventA
     public void onBindViewHolder(@NonNull EventAdapter eventAdapter, int i) {
         eventAdapter.mAysTime.setText("统计时间: "+mList.get(getItemCount()-1-i).getAysTime());
         eventAdapter.mAysEventName.setText("事件名称: "+mList.get(getItemCount()-1-i).getAysEventName());
-        eventAdapter.mAysEventInfo.setText("事件信息: "+mList.get(getItemCount()-1-i).getAysEventInfo());
+        eventAdapter.mAysEventInfo.setText(JsonFormat.formatJson(mList.get(getItemCount()-1-i).getAysEventInfo()));
     }
 
     @Override
@@ -59,5 +60,10 @@ public class AysEventAdapter extends RecyclerView.Adapter<AysEventAdapter.EventA
             mAysEventName=itemView.findViewById(R.id.tv_ays_event_name);
             mAysEventInfo=itemView.findViewById(R.id.tv_ays_event_info);
         }
+    }
+
+    public void clearData(){
+        mList.clear();
+        notifyDataSetChanged();
     }
 }

@@ -588,4 +588,8 @@ public class FloatingBoxManager {
         return mAysList;
     }
 
+    public void clearEventList(){
+        mAysList.clear();
+    }
+
 }
