@@ -28,6 +28,7 @@ v1.0
 ```
 1.build.gradle(app) 中
 
+implementation 'com.dailyyoga:boxhelper:1.6.0'
 implementation 'com.dailyyoga:boxhelper:1.0.0'
 
 2.Application中初始化
