@@ -140,6 +140,29 @@ public class FloatingBoxManager {
         return this;
     }
 
+    public FloatingBoxManager addScenesUrl(String key,boolean isDefaultScene,String... url){
+        if (isDefaultScene){
+            mFirstKey=key;
+        }
+        return addScenesUrl(key,url);
+    }
+
+    public FloatingBoxManager addScenesUrl(String key,boolean isDefaultScene,String cachedHeaderFiledName,
+                                           String supportEffectName,String headerKey,String headerValue,String... url){
+        if (isDefaultScene){
+            mFirstKey=key;
+        }
+        return addScene(key,cachedHeaderFiledName,supportEffectName,headerKey,headerValue,url);
+    }
+
+    public FloatingBoxManager addScenesUrl(String key,boolean isDefaultScene,String cachedHeaderFiledName,String supportEffectName,
+                                           List<HeaderModel> headers,String... url){
+        if (isDefaultScene){
+            mFirstKey=key;
+        }
+        return addScene(key,cachedHeaderFiledName,supportEffectName,headers,url);
+    }
+
     /**
      * 设置场景key--多个作用的url
      *
@@ -169,38 +192,6 @@ public class FloatingBoxManager {
         return this;
     }
 
-    /**
-     * 设置场景key--多个作用的url
-     *
-     * @param key 场景名
-     * @param url url...
-     */
-    private void addScenesUrl(String key, boolean supportHeader,String effectName,String... url){
-        List<HttpItem> list = new ArrayList<>();
-        for (int j = 0; j < mModifyFiledNameList.size(); j++) {
-            HttpItem httpItem = new HttpItem();
-            httpItem.setUrlFiledName(mModifyFiledNameList.get(j));
-            httpItem.setUrl(url[j]);
-            list.add(httpItem);
-        }
-        mHttpManagerMap.put(key, list);
-        if (mFirstKey == null) {
-            mFirstKey = key;
-        }
-
-
-        if (mSceneModel==null){
-            mSceneModel=new ArrayList<>();
-        }
-        SceneModel sceneModel=new SceneModel();
-        sceneModel.setKey(key);
-        sceneModel.setEffectName(effectName);
-
-        if (supportHeader){
-            sceneModel.setSupportHeader(true);
-        }
-        mSceneModel.add(sceneModel);
-    }
 
     /**
      * 添加包含生效请求头的场景
@@ -256,13 +247,50 @@ public class FloatingBoxManager {
         return this;
     }
 
+    /**
+     * 设置场景key--多个作用的url
+     *
+     * @param key 场景名
+     * @param url url...
+     */
+    private void addScenesUrl(String key, boolean supportHeader,String effectName,String... url){
+        List<HttpItem> list = new ArrayList<>();
+        for (int j = 0; j < mModifyFiledNameList.size(); j++) {
+            HttpItem httpItem = new HttpItem();
+            httpItem.setUrlFiledName(mModifyFiledNameList.get(j));
+            httpItem.setUrl(url[j]);
+            list.add(httpItem);
+        }
+        mHttpManagerMap.put(key, list);
+        if (mFirstKey == null) {
+            mFirstKey = key;
+        }
+
+
+        if (mSceneModel==null){
+            mSceneModel=new ArrayList<>();
+        }
+        SceneModel sceneModel=new SceneModel();
+        sceneModel.setKey(key);
+        sceneModel.setEffectName(effectName);
+
+        if (supportHeader){
+            sceneModel.setSupportHeader(true);
+        }
+        mSceneModel.add(sceneModel);
+    }
+
+    /**
+     * 判断是否设置了缓存类
+     * @return
+     */
     private boolean isHasCachedClass(){
-        //判断是否设置了缓存类
         if (mCachedUrlClassName == null || "".equals(mCachedUrlClassName)
                 || mCachedUrlFiledName == null || "".equals(mCachedUrlFiledName)) {
             return false;
+        }else {
+            return true;
         }
-        return true;
     }
 
     /**
@@ -314,15 +342,16 @@ public class FloatingBoxManager {
         if (isUrlCache) {
             String cacheKey = SpHelper.getSpHelper().getStringValue(HTTP_SCENE_KEY);
             mCacheKeyName = cacheKey;
-            try {
-                changeHttpUrlBase(cacheKey);
-            } catch (SceneException e) {
-                e.printStackTrace();
-            }
         } else {
             //默认第一次存储第一个环境
             SpHelper.getSpHelper().putStringValue(HTTP_SCENE_KEY, mFirstKey).doCommit();
             mCacheKeyName = mFirstKey;
+        }
+
+        try {
+            changeHttpUrlBase(mCacheKeyName);
+        } catch (SceneException e) {
+            e.printStackTrace();
         }
 
     }
