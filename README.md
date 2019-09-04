@@ -10,7 +10,7 @@ v1.0
 
 ### 如何使用
 
-last-version :  [ ![Download](https://api.bintray.com/packages/funnyzhaov/maven/boxhelper/images/download.svg?version=1.6.0) ](https://bintray.com/funnyzhaov/maven/boxhelper/1.6.0/link)
+last-version :  [ ![Download](https://api.bintray.com/packages/funnyzhaov/maven/boxhelper/images/download.svg?version=1.6.1) ](https://bintray.com/funnyzhaov/maven/boxhelper/1.6.1/link)
 
 ```
 1.build.gradle(app) 中
