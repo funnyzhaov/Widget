@@ -4,21 +4,34 @@
     android:id="@+id/rl_broad"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="#ffffff">
+    android:layout_height="match_parent"
+    android:background="@color/page_default_bg">
+    <LinearLayout
+        android:background="#FFFFFF"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
 
-    <TextView
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        android:text="网络环境切换"
-        android:textColor="#212121"
-        android:textSize="18sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/dy_iv_back"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/dy_page_back"
+            android:layout_width="30dp"
+            android:layout_height="30dp" />
+        <TextView
+            android:text="网络环境切换"
+            android:gravity="center"
+            android:textColor="@color/page_title_color"
+            android:textSize="18sp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+    </LinearLayout>
 
 
     <android.support.v7.widget.RecyclerView
-        android:layout_marginTop="20dp"
+        android:paddingTop="10dp"
         android:id="@+id/change_http_rv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

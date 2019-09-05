@@ -62,6 +62,8 @@ public class DebugApp extends TestApp {
                     FloatingBoxManager.getInstance().createFloatingView(activity);
                     FloatingBoxManager.getInstance().showFloatingView(activity);
                     Toast.makeText(getApplicationContext(), "测试环境", Toast.LENGTH_SHORT).show();
+                    FloatingBoxManager.getInstance().addAysInfo("售卖事件1","{ \"name\": \"programer\", \"age\": \"18\" }");
+                    FloatingBoxManager.getInstance().addAysInfo("售卖事件2","{ \"name\": \"programer\", \"sie\": \"19\" }");
                     isCreatedBox=true;
                 }
             }

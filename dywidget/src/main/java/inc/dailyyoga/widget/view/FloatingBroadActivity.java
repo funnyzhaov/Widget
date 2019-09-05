@@ -1,5 +1,8 @@
 package inc.dailyyoga.widget.view;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,7 +18,8 @@ import inc.dailyyoga.widget.FloatingBoxManager;
 public class FloatingBroadActivity extends DyBaseActivity implements View.OnClickListener {
     //关闭
     private ImageView mCloseTv;
-
+    private ImageView mBackIv;//返回
+    private AlertDialog.Builder builder;
     //功能组件
     private FrameLayout mNetArrow;//网络
     private FrameLayout mAysArrow;//统计
@@ -28,40 +32,59 @@ public class FloatingBroadActivity extends DyBaseActivity implements View.OnClic
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.floating_view_layout);
-        mCloseTv=findViewById(R.id.iv_close);
+        mCloseTv = findViewById(R.id.iv_close);
+        mBackIv = findViewById(R.id.dy_iv_back);
         initListener();
-        mFromClassName=getIntent().getStringExtra("className");
-        if (!TextUtils.isEmpty(FloatingBoxManager.getInstance().getChannelName())){
+        mFromClassName = getIntent().getStringExtra("className");
+        if (!TextUtils.isEmpty(FloatingBoxManager.getInstance().getChannelName())) {
             mChannel.setText(FloatingBoxManager.getInstance().getChannelName());
-        }else {
+        } else {
             mChannel.setVisibility(View.GONE);
         }
     }
 
 
-    private void initListener(){
+    private void initListener() {
         //组件
-        mNetArrow=findViewById(R.id.f1);
-        mAysArrow=findViewById(R.id.f2);
-        mChannel=findViewById(R.id.tv_channel);
+        mNetArrow = findViewById(R.id.f1);
+        mAysArrow = findViewById(R.id.f2);
+        mChannel = findViewById(R.id.tv_channel);
         mCloseTv.setOnClickListener(this);
         mNetArrow.setOnClickListener(this);
         mAysArrow.setOnClickListener(this);
+        mBackIv.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        if (v.getId()==R.id.iv_close){
+        if (v.getId() == R.id.iv_close) {
+            if (builder == null) {
+                builder = new AlertDialog.Builder(this).setIcon(R.drawable.dy_scene_close_icon).setTitle("关闭提示")
+                        .setMessage("关闭后，应用使用期间不再显示，下次重启显示").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                finish();
+                                FloatingBoxManager.getInstance().hideFloatingView(mFromClassName);
+                            }
+                        }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                            }
+                        });
+            }
+            builder.create().show();
+        }
+        if (v.getId() == R.id.f1) {
+            Intent intent = new Intent(this, NetChangeBroadActivity.class);
+            startActivity(intent);
+        }
+        if (v.getId() == R.id.f2) {
+            Intent intent = new Intent(this, AysBroadActivity.class);
+            startActivity(intent);
+        }
+        if (v.getId() == R.id.dy_iv_back) {
             finish();
-            FloatingBoxManager.getInstance().hideFloatingView(mFromClassName);
-        }
-        if (v.getId()==R.id.f1){
-            Intent intent=new Intent(this,NetChangeBroadActivity.class);
-            startActivity(intent);
-        }
-        if (v.getId()==R.id.f2){
-            Intent intent=new Intent(this,AysBroadActivity.class);
-            startActivity(intent);
         }
     }
 }

@@ -6,6 +6,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
+    <ImageView
+        android:id="@+id/dy_iv_back"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/dy_scene_page_back_close"
+        android:layout_width="30dp"
+        android:layout_height="30dp" />
+
 
     <ImageView
         android:id="@+id/iv_close"
@@ -24,15 +33,16 @@
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
         android:text="调试盒子"
-        android:textColor="#212121"
-        android:textSize="20sp" />
+        android:textColor="@color/page_title_color"
+        android:textSize="18sp" />
 
     <TextView
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/tv_title"
-        tools:text="qudao"
+        tools:text="渠道信息"
         android:layout_marginTop="20dp"
         android:textSize="18sp"
+        android:textColor="@color/page_title_color"
         android:id="@+id/tv_channel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
@@ -51,7 +61,7 @@
             android:id="@+id/iv_net"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:background="@drawable/dy_scene_ays_icon" />
+            android:background="@drawable/dy_scene_net_icon" />
 
     </FrameLayout>
 
@@ -70,7 +80,7 @@
             android:id="@+id/iv_ays"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:background="@drawable/dy_scene_net_icon" />
+            android:background="@drawable/dy_scene_ays_icon" />
     </FrameLayout>
 
 

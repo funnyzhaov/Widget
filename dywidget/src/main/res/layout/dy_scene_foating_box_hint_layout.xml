@@ -9,5 +9,5 @@
         android:layout_height="30dp"
         android:layout_gravity="center"
         android:background="@drawable/dy_scene_box"
-        android:textColor="#ffffff" />
+        />
 </LinearLayout>
