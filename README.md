@@ -15,11 +15,14 @@ last-version :  [ ![Download](https://api.bintray.com/packages/funnyzhaov/maven/
 
 #### 1.build.gradle(app) 中
 
+```
 implementation 'com.dailyyoga:boxhelper:last-version'
 
+```
 
 #### 2.Application中初始化
 
+```
 public class TestApp extends Application {
     @Override
     public void onCreate() {
@@ -48,10 +51,14 @@ public class TestApp extends Application {
     }
 }
 
+```
+
 #### 3.创建调试盒子在任意页面
- 
+
+ ```
         FloatingBoxManager.getInstance().createFloatingView(this);
         FloatingBoxManager.getInstance().showFloatingView(this);
+ ```
 
 #### 4.更多API
 
