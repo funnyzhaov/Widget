@@ -77,6 +77,8 @@ public class FloatingBoxManager {
 
     //first key
     private String mFirstKey;
+    //缓存第一次取到的默认key,如果未设置指定场景，则取值
+    private String mCachedFirstKey;
 
     private List<HeaderModel> mHeaderList;
     //请求头变量名
@@ -178,8 +180,8 @@ public class FloatingBoxManager {
             list.add(httpItem);
         }
         mHttpManagerMap.put(key, list);
-        if (mFirstKey == null) {
-            mFirstKey = key;
+        if (mCachedFirstKey == null) {
+            mCachedFirstKey = key;
         }
 
         if (mSceneModel==null){
@@ -262,8 +264,8 @@ public class FloatingBoxManager {
             list.add(httpItem);
         }
         mHttpManagerMap.put(key, list);
-        if (mFirstKey == null) {
-            mFirstKey = key;
+        if (mCachedFirstKey == null) {
+            mCachedFirstKey = key;
         }
 
 
@@ -343,7 +345,9 @@ public class FloatingBoxManager {
             String cacheKey = SpHelper.getSpHelper().getStringValue(HTTP_SCENE_KEY);
             mCacheKeyName = cacheKey;
         } else {
-            //默认第一次存储第一个环境
+            if (mFirstKey==null){
+                mFirstKey=mCachedFirstKey;
+            }
             SpHelper.getSpHelper().putStringValue(HTTP_SCENE_KEY, mFirstKey).doCommit();
             mCacheKeyName = mFirstKey;
         }
