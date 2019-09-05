@@ -35,7 +35,7 @@ public class DebugApp extends TestApp {
         FloatingBoxManager
                 .getInstance()
                 .setSceneCount(API.class.getName(), 3, "BASE_URL", "BASE_H5_URL")
-                .addScenesUrl("测试环境", API.T_BASE_URL, API.T_BASE_H5_URL)
+                .addScenesUrl("测试环境",true, API.T_BASE_URL, API.T_BASE_H5_URL)
                 .addScenesUrl("正式环境", API.O_BASE_URL, API.O_BASE_H5_URL)
                 .setCachedUrlClass(OHttp.class.getName(),"mBaseUrl")
                 .addScene("特殊环境", "mHeader", "课程支持", "k","v",
