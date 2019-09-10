@@ -11,6 +11,9 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.zk.qpm.manager.QPMManager;
 
 import inc.dailyyoga.widget.R;
 import inc.dailyyoga.widget.FloatingBoxManager;
@@ -23,6 +26,7 @@ public class FloatingBroadActivity extends DyBaseActivity implements View.OnClic
     //功能组件
     private FrameLayout mNetArrow;//网络
     private FrameLayout mAysArrow;//统计
+    private FrameLayout mPermArrow;//性能
 
     private TextView mChannel;//渠道
 
@@ -49,9 +53,11 @@ public class FloatingBroadActivity extends DyBaseActivity implements View.OnClic
         mNetArrow = findViewById(R.id.f1);
         mAysArrow = findViewById(R.id.f2);
         mChannel = findViewById(R.id.tv_channel);
+        mPermArrow=findViewById(R.id.f3);
         mCloseTv.setOnClickListener(this);
         mNetArrow.setOnClickListener(this);
         mAysArrow.setOnClickListener(this);
+        mPermArrow.setOnClickListener(this);
         mBackIv.setOnClickListener(this);
     }
 
@@ -86,5 +92,31 @@ public class FloatingBroadActivity extends DyBaseActivity implements View.OnClic
         if (v.getId() == R.id.dy_iv_back) {
             finish();
         }
+
+        if (v.getId()==R.id.f3){
+            hintPerformance();
+        }
+    }
+
+    private void hintPerformance(){
+        if (builder == null) {
+            builder = new AlertDialog.Builder(this).setTitle("性能监控窗口")
+                    .setMessage("开启或关闭").setPositiveButton("开启", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            if (!QPMManager.getInstance().floatViewShow()) {
+                                Toast.makeText(FloatingBroadActivity.this, "请开启悬浮窗权限", Toast.LENGTH_SHORT).show();
+                            }
+                            dialogInterface.dismiss();
+                        }
+                    }).setNegativeButton("关闭", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            QPMManager.getInstance().floatViewHide();
+                            dialogInterface.dismiss();
+                        }
+                    });
+        }
+        builder.create().show();
     }
 }

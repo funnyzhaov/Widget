@@ -81,6 +81,24 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="@drawable/dy_scene_ays_icon" />
+
+    </FrameLayout>
+    <FrameLayout
+        android:layout_marginLeft="1dp"
+        android:padding="20dp"
+        android:id="@+id/f3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_channel"
+        android:layout_marginTop="20dp"
+        android:layout_toRightOf="@+id/f2"
+        android:background="@drawable/dy_menu_item_bg">
+
+        <ImageView
+            android:id="@+id/iv_performance"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/dy_performance_icon" />
     </FrameLayout>
 
 

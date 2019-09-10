@@ -1,10 +1,13 @@
 package inc.dailyyoga.widget;
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.util.SparseArray;
+
+import com.zk.qpm.manager.QPMManager;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -625,4 +628,11 @@ public class FloatingBoxManager {
         mAysList.clear();
     }
 
+
+    /*性能检测*/
+
+    public  FloatingBoxManager openPerformance(Application application){
+        QPMManager.getInstance().init(application);
+        return this;
+    }
 }

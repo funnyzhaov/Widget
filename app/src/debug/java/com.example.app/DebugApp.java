@@ -47,6 +47,7 @@ public class DebugApp extends TestApp {
                         Log.d("HHHOOO",sceneModel.toString());
                     }
                 })
+                .openPerformance(this)
                 .startInitScene(this);
 
         //无网络类保存url的信息
