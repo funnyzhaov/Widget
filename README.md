@@ -12,13 +12,17 @@
 
 埋点事件统计显示
 
+> 性能监控：分析每个页面的卡顿、CPU、内存、线程情况;展示项目中所有SharedPreferences存储情况；系统详细信息
+
+
+
 ### API
 
 [ API WIKI](https://github.com/funnyzhaov/Widget/wiki/%E6%A0%B8%E5%BF%83API%E8%AF%B4%E6%98%8E)
 
 ### 如何使用
 
-last-version :  [ ![Download](https://api.bintray.com/packages/funnyzhaov/maven/boxhelper/images/download.svg?version=1.6.3) ](https://bintray.com/funnyzhaov/maven/boxhelper/1.6.3/link)
+last-version :  [ ![Download](https://api.bintray.com/packages/funnyzhaov/maven/boxhelper/images/download.svg?version=1.6.5) ](https://bintray.com/funnyzhaov/maven/boxhelper/1.6.5/link)
 
 
 #### 1.build.gradle(app) 中
@@ -55,6 +59,9 @@ public class TestApp extends Application {
 
         //事件统计
         FloatingBoxManager.getInstance().addAysInfo("eventName","aysInfo");
+        
+        //开启性能监控
+        FloatingBoxManager.getInstance().openPerformance(this);
 
     }
 }
