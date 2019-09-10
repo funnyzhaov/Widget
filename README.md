@@ -2,11 +2,19 @@
 
 测试好帮手--调试盒子
 
-### 版本介绍
+### 能做什么
 
+> 告别复杂烦乱的手动改环境打包，一次配置，爽到上线
 
+网络环境切换 
 
-功能：1.网络环境切换  2.埋点事件统计显示
+> 数据同学测试埋点，告别一个事件3分钟刷网页等待的痛苦。实时查看，一组测完后，刷新网页对照即可。
+
+埋点事件统计显示
+
+### API
+
+[ API WIKI](https://github.com/funnyzhaov/Widget/wiki/%E6%A0%B8%E5%BF%83API%E8%AF%B4%E6%98%8E)
 
 ### 如何使用
 
@@ -15,11 +23,14 @@ last-version :  [ ![Download](https://api.bintray.com/packages/funnyzhaov/maven/
 
 #### 1.build.gradle(app) 中
 
+```
 implementation 'com.dailyyoga:boxhelper:last-version'
 
+```
 
 #### 2.Application中初始化
 
+```
 public class TestApp extends Application {
     @Override
     public void onCreate() {
@@ -48,10 +59,14 @@ public class TestApp extends Application {
     }
 }
 
+```
+
 #### 3.创建调试盒子在任意页面
- 
+
+ ```
         FloatingBoxManager.getInstance().createFloatingView(this);
         FloatingBoxManager.getInstance().showFloatingView(this);
+ ```
 
 #### 4.更多API
 
