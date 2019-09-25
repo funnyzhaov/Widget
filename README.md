@@ -18,7 +18,7 @@
 
 ### 如何使用
 
-last-version :  [ ![Download](https://api.bintray.com/packages/funnyzhaov/maven/boxhelper/images/download.svg?version=1.6.3) ](https://bintray.com/funnyzhaov/maven/boxhelper/1.6.3/link)
+last-version :  [ ![Download](https://api.bintray.com/packages/funnyzhaov/maven/boxhelper/images/download.svg?version=2.0.0) ](https://bintray.com/funnyzhaov/maven/boxhelper/2.0.0/link)
 
 
 #### 1.build.gradle(app) 中
@@ -51,7 +51,7 @@ public class TestApp extends Application {
                               Log.d("HHHOOO",sceneModel.toString());
                           }
                       })
-                      .startInitScene(this);
+                      .install(this,this);
 
         //事件统计
         FloatingBoxManager.getInstance().addAysInfo("eventName","aysInfo");
@@ -61,12 +61,6 @@ public class TestApp extends Application {
 
 ```
 
-#### 3.创建调试盒子在任意页面
-
- ```
-        FloatingBoxManager.getInstance().createFloatingView(this);
-        FloatingBoxManager.getInstance().showFloatingView(this);
- ```
 
 #### 4.更多API
 
