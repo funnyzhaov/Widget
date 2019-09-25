@@ -1,4 +1,4 @@
-package inc.dailyyoga.widget.view;
+package inc.dailyyoga.widget.kitcomponent.biz;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -6,11 +6,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import inc.dailyyoga.widget.R;
 import inc.dailyyoga.widget.FloatingBoxManager;
-import inc.dailyyoga.widget.view.adapter.AysEventAdapter;
+import inc.dailyyoga.widget.kitcomponent.adapter.AysEventAdapter;
 
 /**
  * 事件统计面板

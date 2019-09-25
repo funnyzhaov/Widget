@@ -1,4 +1,4 @@
-package inc.dailyyoga.widget.view;
+package inc.dailyyoga.widget.kitcomponent.biz;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,7 +9,7 @@ import android.widget.ImageView;
 
 import inc.dailyyoga.widget.R;
 import inc.dailyyoga.widget.FloatingBoxManager;
-import inc.dailyyoga.widget.view.adapter.FloatingHttpChangeAdapter;
+import inc.dailyyoga.widget.kitcomponent.adapter.FloatingHttpChangeAdapter;
 
 public class NetChangeBroadActivity extends DyBaseActivity {
 

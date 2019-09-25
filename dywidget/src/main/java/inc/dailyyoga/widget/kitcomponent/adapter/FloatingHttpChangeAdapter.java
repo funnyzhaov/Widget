@@ -1,4 +1,4 @@
-package inc.dailyyoga.widget.view.adapter;
+package inc.dailyyoga.widget.kitcomponent.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

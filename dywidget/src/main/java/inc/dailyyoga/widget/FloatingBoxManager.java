@@ -1,13 +1,12 @@
 package inc.dailyyoga.widget;
 
-import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
-import android.util.SparseArray;
 
-import com.zk.qpm.manager.QPMManager;
+import com.didichuxing.doraemonkit.DoraemonKit;
+import com.didichuxing.doraemonkit.kit.IKit;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -17,9 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Stack;
 
 import inc.dailyyoga.widget.bean.AysItem;
 import inc.dailyyoga.widget.bean.HeaderModel;
@@ -27,7 +24,8 @@ import inc.dailyyoga.widget.bean.HttpItem;
 import inc.dailyyoga.widget.bean.SceneModel;
 import inc.dailyyoga.widget.cache.SpHelper;
 import inc.dailyyoga.widget.exception.SceneException;
-import inc.dailyyoga.widget.view.FloatingViewManager;
+import inc.dailyyoga.widget.kitcomponent.DyAysKit;
+import inc.dailyyoga.widget.kitcomponent.DyEnvSwitchKit;
 
 /*
 
@@ -49,14 +47,12 @@ import inc.dailyyoga.widget.view.FloatingViewManager;
 
  */
 public class FloatingBoxManager {
+    private List<IKit> kits=new ArrayList<>();
     private String TAG = FloatingBoxManager.class.getSimpleName();
     private Context mContext;
 
     private static FloatingBoxManager mInstance; //单例
 
-    //调试盒子
-    private FloatingViewManager mFloatingViewManager;
-    private static Stack<FloatingViewManager> mFloatingViewStack = new Stack<>();
 
     /*------------------------网络切换---------------------*/
     //modify
@@ -338,7 +334,7 @@ public class FloatingBoxManager {
      *
      * @param context app
      */
-    public void startInitScene(Context context) {
+    public void install(Context context,Application application) {
         mContext = context;
         SpHelper.initSpHelper(mContext, TAG);
 
@@ -360,7 +356,10 @@ public class FloatingBoxManager {
         } catch (SceneException e) {
             e.printStackTrace();
         }
-
+        kits.add(new DyEnvSwitchKit());
+        kits.add(new DyAysKit());
+        DoraemonKit.install(application, kits);
+        DoraemonKit.disableUpload();//禁止上传信息
     }
 
     public String getCurrentScene() {
@@ -537,68 +536,6 @@ public class FloatingBoxManager {
         return this;
     }
 
-
-
-    /**
-     * 初始化FloatingView
-     *
-     * @param baseActivity
-     * @return
-     */
-    public void createFloatingView(Activity baseActivity) {
-        //浮窗View
-        mFloatingViewManager = new FloatingViewManager(baseActivity);
-        mFloatingViewManager.setFloatingGravity(0);
-        mFloatingViewStack.push(mFloatingViewManager);
-    }
-
-    /**
-     * 初始化FloatingView
-     *
-     * @param baseActivity
-     * @return
-     */
-    public void createFloatingView(Activity baseActivity, int location) {
-        //浮窗View
-        mFloatingViewManager = new FloatingViewManager(baseActivity);
-        mFloatingViewManager.setFloatingGravity(location);
-        mFloatingViewStack.push(mFloatingViewManager);
-    }
-
-    /**
-     * 显示Floating
-     */
-    public void showFloatingView(Activity activity) {
-        for (FloatingViewManager floatingViewManager : mFloatingViewStack) {
-            if (floatingViewManager.getMActivity().getClass().getName().equals(activity.getClass().getName())) {
-                floatingViewManager.showFloating();
-            }
-        }
-    }
-
-    public void hideFloatingView(Activity activity) {
-        Iterator<FloatingViewManager> iterator=mFloatingViewStack.iterator();
-        while (iterator.hasNext()){
-            FloatingViewManager floatingViewManager=iterator.next();
-            if (floatingViewManager.getMActivity().getClass().getName().equals(activity.getClass().getName())) {
-                floatingViewManager.hideFloating();
-                iterator.remove();
-            }
-        }
-    }
-
-    public void hideFloatingView(String activityClassName) {
-
-        Iterator<FloatingViewManager> iterator=mFloatingViewStack.iterator();
-        while (iterator.hasNext()){
-            FloatingViewManager floatingViewManager=iterator.next();
-            if (floatingViewManager.getMActivity().getClass().getName().equals(activityClassName)) {
-                floatingViewManager.hideFloating();
-                iterator.remove();
-            }
-        }
-    }
-
     /**
      * 添加埋点信息
      */
@@ -628,11 +565,4 @@ public class FloatingBoxManager {
         mAysList.clear();
     }
 
-
-    /*性能检测*/
-
-    public  FloatingBoxManager openPerformance(Application application){
-        QPMManager.getInstance().init(application);
-        return this;
-    }
 }

@@ -41,14 +41,7 @@ public class DebugApp extends TestApp {
                 .addScene("特殊环境", "mHeader", "课程支持", "k","v",
                         API.T_BASE_URL, API.T_BASE_H5_URL)
                 .addChannelName("华为") //添加渠道
-                .setChangeUrlInitListener(new FloatingBoxManager.ChangeUrlInitListener() {
-                    @Override
-                    public void onRestartInit(SceneModel sceneModel) {
-                        Log.d("HHHOOO",sceneModel.toString());
-                    }
-                })
-                .openPerformance(this)
-                .startInitScene(this);
+                .install(this,this);
 
         //无网络类保存url的信息
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
@@ -60,8 +53,6 @@ public class DebugApp extends TestApp {
             @Override
             public void onActivityStarted(Activity activity) {
                 if (activity.getClass().getName().equals(MainActivity.class.getName()) && !isCreatedBox) {
-                    FloatingBoxManager.getInstance().createFloatingView(activity);
-                    FloatingBoxManager.getInstance().showFloatingView(activity);
                     Toast.makeText(getApplicationContext(), "测试环境", Toast.LENGTH_SHORT).show();
                     FloatingBoxManager.getInstance().addAysInfo("售卖事件1","{ \"name\": \"programer\", \"age\": \"18\" }");
                     FloatingBoxManager.getInstance().addAysInfo("售卖事件2","{ \"name\": \"programer\", \"sie\": \"19\" }");
