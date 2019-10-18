@@ -160,6 +160,10 @@ public class FloatingBoxManager {
         return addScenesNormalUrl(key,url);
     }
 
+    public FloatingBoxManager addScenesUrl(String key,String... url){
+        return addScenesNormalUrl(key,url);
+    }
+
     public FloatingBoxManager addScenesUrlSupportKv(String key,boolean isDefaultScene,String cachedHeaderFiledName,
                                            String supportEffectName,String headerKey,String headerValue,String... url){
         if (isDefaultScene){
