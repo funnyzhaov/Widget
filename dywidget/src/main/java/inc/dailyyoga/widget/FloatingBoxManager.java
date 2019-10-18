@@ -7,6 +7,8 @@ import android.util.Log;
 
 import com.didichuxing.doraemonkit.DoraemonKit;
 import com.didichuxing.doraemonkit.kit.IKit;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -61,6 +63,8 @@ public class FloatingBoxManager {
 
     //key
     private final String HTTP_SCENE_KEY = "HTTP_SCENE_KEY";
+    //网络场景队列key
+    private final String HTTP_SCENE_QUEUE_KEY = "HTTP_SCENE_QUEUE_KEY";
     //cache Scene
     private String mCacheKeyName;
 
@@ -401,6 +405,18 @@ public class FloatingBoxManager {
             mCacheKeyName = mFirstKey;
         }
 
+        boolean isHasCachedQueue=SpHelper.getSpHelper().hasKey(HTTP_SCENE_QUEUE_KEY);
+        if (isHasCachedQueue){
+            String cacheQueue = SpHelper.getSpHelper().getStringValue(HTTP_SCENE_QUEUE_KEY);
+            Gson gson = new Gson();
+            HashMap<String,List<HttpItem>> httpQueue = gson.fromJson(cacheQueue, new TypeToken< HashMap<String,List<HttpItem>>>() {
+            }.getType());
+            mHttpManagerMap=httpQueue;
+        }else {
+            Gson gson = new Gson();
+            String cacheSaveQueue = gson.toJson(mHttpManagerMap);
+            SpHelper.getSpHelper().putStringValue(HTTP_SCENE_QUEUE_KEY, cacheSaveQueue).doApply();
+        }
         try {
             changeHttpUrlBase(mCacheKeyName);
         } catch (SceneException e) {

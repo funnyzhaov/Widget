@@ -153,6 +153,13 @@ public class SpHelper {
     }
 
     /**
+     * 执行提交操作
+     */
+    public void doApply() {
+        mEditor.apply();
+    }
+
+    /**
      * 清空存储
      */
     public void doClearAll() {
