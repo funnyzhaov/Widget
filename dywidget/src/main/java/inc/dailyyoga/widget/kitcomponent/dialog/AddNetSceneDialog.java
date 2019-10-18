@@ -61,6 +61,7 @@ public class AddNetSceneDialog {
                     FloatingBoxManager.getInstance().getCachedDefaultItems().get(0).setUrl(host);
                     FloatingBoxManager.getInstance().addScenesUrlDIY(hostName,FloatingBoxManager.getInstance().getCachedDefaultItems());
                     Toast.makeText(mContext, "已添加", Toast.LENGTH_SHORT).show();
+                    FloatingBoxManager.getInstance().updateSceneQueue();
                     if (mListener!=null){
                         mListener.onAddSuccess();
                     }

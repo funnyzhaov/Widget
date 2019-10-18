@@ -11,6 +11,16 @@ public class SceneModel {
     private boolean isOpenHeader;//是否开启
     private boolean isSelect;
     private String effectName;
+    private boolean isCanRemove=false;
+
+    public boolean isCanRemove() {
+        return isCanRemove;
+    }
+
+    public void setCanRemove(boolean canRemove) {
+        isCanRemove = canRemove;
+    }
+
     public String getKey() {
         return key;
     }
@@ -59,6 +69,7 @@ public class SceneModel {
                 ", isOpenHeader=" + isOpenHeader +
                 ", isSelect=" + isSelect +
                 ", effectName='" + effectName + '\'' +
+                ", isCanRemove=" + isCanRemove +
                 '}';
     }
 

@@ -111,7 +111,16 @@ public class FloatingHttpChangeAdapter extends RecyclerView.Adapter<FloatingHttp
         httpHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                mSceneDeleteDialog.showVideoDialog(mSceneList.get(position).getKey());
+                if (!mSceneList.get(position).isCanRemove()){
+                    Toast.makeText(mContext, "当前环境不可删除", Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+
+                if (mSceneList.get(position).isSelect()){
+                    Toast.makeText(mContext, "当前环境应用中，请切换后删除", Toast.LENGTH_SHORT).show();
+                }else {
+                    mSceneDeleteDialog.showVideoDialog(mSceneList.get(position).getKey());
+                }
                 return false;
             }
         });

@@ -41,6 +41,7 @@ public class DeleteSceneHintDialog {
             public void onClick(View v) {
                 FloatingBoxManager.getInstance().removeScenesUrl(key);
                 Toast.makeText(mContext, "已移除 "+key+" 环境", Toast.LENGTH_SHORT).show();
+                FloatingBoxManager.getInstance().updateSceneQueue();
                 mDialog.dismiss();
             }
         });
