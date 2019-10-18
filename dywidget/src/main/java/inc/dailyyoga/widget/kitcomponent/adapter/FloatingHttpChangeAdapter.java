@@ -16,6 +16,7 @@ import java.util.List;
 import inc.dailyyoga.widget.R;
 import inc.dailyyoga.widget.FloatingBoxManager;
 import inc.dailyyoga.widget.bean.SceneModel;
+import inc.dailyyoga.widget.kitcomponent.dialog.DeleteSceneHintDialog;
 
 /*
 
@@ -41,20 +42,39 @@ public class FloatingHttpChangeAdapter extends RecyclerView.Adapter<FloatingHttp
     private LayoutInflater mInflater;
     private Context mContext;
     private List<SceneModel> mSceneList = new ArrayList<>();
+    private DeleteSceneHintDialog mSceneDeleteDialog;
 
     public FloatingHttpChangeAdapter(Context context, List<SceneModel> scenes) {
         mContext = context;
         mInflater = LayoutInflater.from(context);
+        updateData(scenes);
+    }
+
+    public void updateData(List<SceneModel> scenes){
         mSceneList.clear();
         mSceneList.addAll(scenes);
-        String currentScene = FloatingBoxManager.getInstance().getCurrentScene();
+        mSceneDeleteDialog=new DeleteSceneHintDialog(mContext);
+        mSceneDeleteDialog.setRemoveSceneListener(new DeleteSceneHintDialog.RemoveSceneListener() {
+            @Override
+            public void onRemoveSuccess() {
+                mSceneList.clear();
+                mSceneList.addAll(FloatingBoxManager.getInstance().getSceneModelArray());
+                updateDataCommon();
+            }
+        });
+        updateDataCommon();
+    }
 
+    private void updateDataCommon(){
+        String currentScene = FloatingBoxManager.getInstance().getCurrentScene();
         for (SceneModel sceneModel : mSceneList) {
             if (sceneModel.getKey().equals(currentScene)) {
                 sceneModel.setSelect(true);
                 break;
             }
         }
+
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -85,6 +105,14 @@ public class FloatingHttpChangeAdapter extends RecyclerView.Adapter<FloatingHttp
                 }
                 mSceneList.get(position).setSelect(true);
                 notifyDataSetChanged();
+            }
+        });
+        //长按删除功能，若当前环境在应用中，请先切换环境后再删除，否则直接删除
+        httpHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                mSceneDeleteDialog.showVideoDialog(mSceneList.get(position).getKey());
+                return false;
             }
         });
         if (mSceneList.get(position).isSupportHeader()){

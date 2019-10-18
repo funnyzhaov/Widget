@@ -84,6 +84,12 @@ public class FloatingBoxManager {
     private String mCachedHeaderFiledName;
     //请求头生效场景名
     private String mCachedHeaderEffectSceneName;
+    //缓存默认的域名队列，只保存第一个添加到场景队列中的值，用作动态添加域名时
+    private List<HttpItem> mCachedDefaultItems=new ArrayList<>();
+
+    public List<HttpItem> getCachedDefaultItems() {
+        return mCachedDefaultItems;
+    }
 
     /*------------------------网络切换---------------------*/
 
@@ -181,6 +187,7 @@ public class FloatingBoxManager {
         mHttpManagerMap.put(key, list);
         if (mCachedFirstKey == null) {
             mCachedFirstKey = key;
+            mCachedDefaultItems=list;
         }
 
         if (mSceneModel==null){
@@ -192,6 +199,48 @@ public class FloatingBoxManager {
 
         return this;
     }
+
+    /**
+     * 设置场景key--多个作用的url
+     *
+     * @param key 场景名
+     * @param listItem
+     */
+    public void addScenesUrlDIY(String key, List<HttpItem> listItem){
+        for (int j = 0; j < mModifyFiledNameList.size(); j++) {
+            listItem.get(0).setUrlFiledName(mModifyFiledNameList.get(j));
+        }
+        mHttpManagerMap.put(key, listItem);
+
+        if (mSceneModel==null){
+            mSceneModel=new ArrayList<>();
+        }
+        SceneModel sceneModel=new SceneModel();
+        sceneModel.setKey(key);
+        mSceneModel.add(sceneModel);
+    }
+
+    /**
+     * 移除场景
+     * @param key
+     */
+    public void removeScenesUrl(String key){
+        //移除UI显示中的场景
+        int sceneModelRemoveIndex=-1;
+        for (int i=0;i<mSceneModel.size();i++) {
+            if (mSceneModel.get(i).getKey().equals(key)){
+                sceneModelRemoveIndex=i;
+                break;
+            }
+        }
+        if (sceneModelRemoveIndex>=0){
+            mSceneModel.remove(sceneModelRemoveIndex);
+        }
+        //移除本地队列场景
+        mHttpManagerMap.remove(key);
+    }
+
+
 
 
     /**
@@ -265,6 +314,7 @@ public class FloatingBoxManager {
         mHttpManagerMap.put(key, list);
         if (mCachedFirstKey == null) {
             mCachedFirstKey = key;
+            mCachedDefaultItems=list;
         }
 
 

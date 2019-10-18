@@ -39,6 +39,12 @@ public class NetChangeBroadActivity extends DyBaseActivity {
      */
     private void initHelp(){
         mAddNetSceneDialog=new AddNetSceneDialog(this);
+        mAddNetSceneDialog.setAddNetSceneListener(new AddNetSceneDialog.AddNetSceneListener() {
+            @Override
+            public void onAddSuccess() {
+                mHttpChangeAdapter.updateData(FloatingBoxManager.getInstance().getSceneModelArray());
+            }
+        });
     }
 
     /**

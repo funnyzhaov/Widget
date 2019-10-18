@@ -38,6 +38,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"/>
     <TextView
+        android:id="@+id/tv_add_scene"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="20dp"
         android:textColor="@color/page_sec_title_color"
