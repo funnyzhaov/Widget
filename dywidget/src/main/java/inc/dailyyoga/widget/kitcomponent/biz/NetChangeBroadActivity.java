@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import inc.dailyyoga.widget.R;
 import inc.dailyyoga.widget.FloatingBoxManager;
 import inc.dailyyoga.widget.kitcomponent.adapter.FloatingHttpChangeAdapter;
+import inc.dailyyoga.widget.kitcomponent.dialog.AddNetSceneDialog;
 
 public class NetChangeBroadActivity extends DyBaseActivity {
 
@@ -17,18 +18,52 @@ public class NetChangeBroadActivity extends DyBaseActivity {
     private RecyclerView mHttpChangeView;
     private ImageView mPageBack;
     private FloatingHttpChangeAdapter mHttpChangeAdapter;
+    //添加网络场景按钮
+    private ImageView mAddSceneIv;
+    private AddNetSceneDialog mAddNetSceneDialog;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dy_scene_net_change_layout);
+        initUIXml();
+        initHttpAdapter();
+        initHelp();
+        initEvent();
+
+    }
+
+    /**
+     * 初始化辅助的组件
+     */
+    private void initHelp(){
+        mAddNetSceneDialog=new AddNetSceneDialog(this);
+    }
+
+    /**
+     * 初始化UI组件
+     */
+    private void initUIXml(){
         mHttpChangeView=findViewById(R.id.change_http_rv);
         mPageBack=findViewById(R.id.dy_iv_back);
-        initHttpAdapter();
+        mAddSceneIv=findViewById(R.id.iv_add_scene);
+    }
+
+    /**
+     * 初始化事件
+     */
+    private void initEvent(){
         mPageBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+        mAddSceneIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAddNetSceneDialog.showVideoDialog();
             }
         });
     }

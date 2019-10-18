@@ -1,6 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:orientation="vertical"
+    android:id="@+id/ll_root"
+    android:background="@color/page_default_bg"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:layout_marginLeft="16dp"
+        android:textSize="16dp"
+        android:textColor="@color/page_sec_title_color"
+        android:text="场景域名"
+        android:gravity="center_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"/>
+    <EditText
+        android:paddingLeft="16dp"
+        android:textColor="@color/page_title_color"
+        android:background="@android:color/white"
+        android:hint="请输入完整域名：示例 http://api.dailyyoga.com/h2oapiv2/"
+        android:id="@+id/et_input_scene_host"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"/>
+    <TextView
+        android:layout_marginLeft="16dp"
+        android:gravity="center_vertical"
+        android:textSize="16dp"
+        android:textColor="@color/page_sec_title_color"
+        android:text="场景名称"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"/>
+    <EditText
+        android:paddingLeft="16dp"
+        android:textColor="@color/page_title_color"
+        android:id="@+id/et_input_scene_name"
+        android:background="@android:color/white"
+        android:hint="请输入一个场景名称： 示例 栋哥"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+    <TextView
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/page_sec_title_color"
+        android:gravity="center"
+        android:text="添加新场景"
+        android:textSize="16dp"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
 </LinearLayout>

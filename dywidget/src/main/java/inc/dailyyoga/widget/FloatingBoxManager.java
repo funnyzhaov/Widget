@@ -148,7 +148,7 @@ public class FloatingBoxManager {
         return addScenesUrl(key,url);
     }
 
-    public FloatingBoxManager addScenesUrl(String key,boolean isDefaultScene,String cachedHeaderFiledName,
+    public FloatingBoxManager addScenesUrlSupportKv(String key,boolean isDefaultScene,String cachedHeaderFiledName,
                                            String supportEffectName,String headerKey,String headerValue,String... url){
         if (isDefaultScene){
             mFirstKey=key;
@@ -156,7 +156,7 @@ public class FloatingBoxManager {
         return addScene(key,cachedHeaderFiledName,supportEffectName,headerKey,headerValue,url);
     }
 
-    public FloatingBoxManager addScenesUrl(String key,boolean isDefaultScene,String cachedHeaderFiledName,String supportEffectName,
+    public FloatingBoxManager addScenesUrlSupportHeaders(String key,boolean isDefaultScene,String cachedHeaderFiledName,String supportEffectName,
                                            List<HeaderModel> headers,String... url){
         if (isDefaultScene){
             mFirstKey=key;
