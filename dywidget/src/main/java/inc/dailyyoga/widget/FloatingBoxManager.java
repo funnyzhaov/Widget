@@ -423,7 +423,12 @@ public class FloatingBoxManager {
         mHttpManagerMap.put(key, list);
         if (mCachedFirstKey == null) {
             mCachedFirstKey = key;
-            mCachedDefaultItems=list;
+            for (HttpItem item: list) {
+                HttpItem cachedItem=new HttpItem();
+                cachedItem.setUrl(item.getUrl());
+                cachedItem.setUrlFiledName(item.getUrlFiledName());
+                mCachedDefaultItems.add(cachedItem);
+            }
         }
 
         if (mSceneModel==null){
