@@ -44,7 +44,7 @@ publish{
 
     publishVersion = '2.1.0'//版本号
 
-    desc = '重构为didi kit'//描述
+    desc = '2.1.0动态切换域名发布'//描述
 
     website = ''//网站，可不填
 
