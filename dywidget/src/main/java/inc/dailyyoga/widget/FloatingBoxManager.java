@@ -257,6 +257,7 @@ public class FloatingBoxManager {
         }
         try {
             changeHttpUrlBase(mCacheKeyName);
+            openHeaderEffect();
         } catch (SceneException e) {
             e.printStackTrace();
         }
@@ -525,6 +526,7 @@ public class FloatingBoxManager {
 
         if (supportHeader){
             sceneModel.setSupportHeader(true);
+            sceneModel.setOpenHeader(true);
         }
         mSceneModel.add(sceneModel);
     }

@@ -136,19 +136,6 @@ public class FloatingHttpChangeAdapter extends RecyclerView.Adapter<FloatingHttp
         }else {
             httpHolder.mHeaderEffect.setText("已开启 ["+mSceneList.get(position).getEffectName()+"] 支持");
         }
-        httpHolder.mHeaderEffect.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //开启支持
-                if (mSceneList.get(position).isSupportHeader()){
-                    if (!mSceneList.get(position).isOpenHeader()){
-                        FloatingBoxManager.getInstance().openHeaderEffect();
-                        mSceneList.get(position).setOpenHeader(true);
-                        notifyDataSetChanged();
-                    }
-                }
-            }
-        });
     }
 
     @Override
