@@ -34,7 +34,7 @@ implementation 'com.dailyyoga:boxhelper:last-version'
 
 #### 2.Application中初始化
 
-```
+```java
 public class TestApp extends Application {
     @Override
     public void onCreate() {
@@ -46,14 +46,20 @@ public class TestApp extends Application {
                       .addScenesUrl("测试环境",true, API.T_BASE_URL, API.T_BASE_H5_URL)
                       .addScenesUrl("正式环境", API.O_BASE_URL, API.O_BASE_H5_URL)
                       .setCachedUrlClass(OHttp.class.getName(),"mBaseUrl") //可传入网络类保存url的信息
-                      .addScenesUrlSupportKv("特殊环境", "课程支持",API.T_BASE_URL, API.T_BASE_H5_URL)
-                      .addChannelName("华为") //添加渠道
+                      .addScenesUrlSupportKv("特殊环境","课程支持", API.T_BASE_URL, API.T_BASE_H5_URL, API.T_BASE_H5_URL, API.T_BASE_H5_URL, API.T_BASE_H5_URL)
+                      .addScenesUrlSupportKv("特殊环境","课程支持", API.T_BASE_URL, API.T_BASE_H5_URL, API.T_BASE_H5_URL, API.T_BASE_H5_URL, API.T_BASE_H5_URL)
                       .setChangeUrlInitListener(new FloatingBoxManager.ChangeUrlInitListener() {
                           @Override
                           public void onRestartInit(SceneModel sceneModel) {
-                              Log.d("HHHOOO",sceneModel.toString());
+
                           }
-                      })
+
+                         @Override
+                         public void onSpecialSceneOpen(boolean open) {
+                           Toast.makeText(getApplicationContext(), "当前"+open, Toast.LENGTH_SHORT).show();
+                         }
+                     })
+                      .addChannelName("华为") //添加渠道
                       .install(this,this);
 
         //事件统计

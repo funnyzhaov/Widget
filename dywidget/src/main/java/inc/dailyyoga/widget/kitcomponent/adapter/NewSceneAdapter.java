@@ -64,7 +64,7 @@ public class NewSceneAdapter extends RecyclerView.Adapter<NewSceneAdapter.SceneH
 
     @Override
     public int getItemCount() {
-        return mList.size()>2 ? 2 : mList.size();
+        return mList.size();
     }
 
     static class SceneHolder extends RecyclerView.ViewHolder{
