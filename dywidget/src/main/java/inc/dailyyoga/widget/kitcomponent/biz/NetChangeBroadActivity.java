@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import inc.dailyyoga.widget.R;
 import inc.dailyyoga.widget.FloatingBoxManager;
@@ -21,6 +22,9 @@ public class NetChangeBroadActivity extends DyBaseActivity {
     //添加网络场景按钮
     private ImageView mAddSceneIv;
     private AddNetSceneDialog mAddNetSceneDialog;
+
+    //渠道信息
+    private TextView mChannelName;
 
 
     @Override
@@ -54,6 +58,8 @@ public class NetChangeBroadActivity extends DyBaseActivity {
         mHttpChangeView=findViewById(R.id.change_http_rv);
         mPageBack=findViewById(R.id.dy_iv_back);
         mAddSceneIv=findViewById(R.id.iv_add_scene);
+        mChannelName=findViewById(R.id.iv_channel_name);
+        mChannelName.setText(FloatingBoxManager.getInstance().getChannelName());
     }
 
     /**

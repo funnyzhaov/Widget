@@ -104,6 +104,7 @@ public class FloatingHttpChangeAdapter extends RecyclerView.Adapter<FloatingHttp
                     sceneModel.setSelect(false);
                 }
                 mSceneList.get(position).setSelect(true);
+                FloatingBoxManager.getInstance().updateSceneModelData(mSceneList);
                 notifyDataSetChanged();
             }
         });
@@ -126,16 +127,37 @@ public class FloatingHttpChangeAdapter extends RecyclerView.Adapter<FloatingHttp
         });
         if (mSceneList.get(position).isSupportHeader()){
             httpHolder.mHeaderEffect.setVisibility(View.VISIBLE);
+            if (mSceneList.get(position).isOpenHeader()){
+                httpHolder.mHeaderEffect.setText("开启状态： ["+mSceneList.get(position).getEffectName()+"]");
+                FloatingBoxManager.getInstance().openHeaderEffect(true);
+            }else {
+                httpHolder.mHeaderEffect.setText("关闭状态： ["+mSceneList.get(position).getEffectName()+"]");
+                FloatingBoxManager.getInstance().openHeaderEffect(false);
+            }
         }else {
             httpHolder.mHeaderEffect.setVisibility(View.GONE);
             return;
         }
 
-        if (!mSceneList.get(position).isOpenHeader()){
-            httpHolder.mHeaderEffect.setText("未开启 ["+mSceneList.get(position).getEffectName()+"] 支持");
-        }else {
-            httpHolder.mHeaderEffect.setText("已开启 ["+mSceneList.get(position).getEffectName()+"] 支持");
-        }
+        httpHolder.mHeaderEffect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!mSceneList.get(position).isOpenHeader()){
+                    mSceneList.get(position).setOpenHeader(true);
+                    httpHolder.mHeaderEffect.setText("开启状态： ["+mSceneList.get(position).getEffectName()+"]");
+                    FloatingBoxManager.getInstance().openHeaderEffect(true);
+                    FloatingBoxManager.getInstance().updateSceneModelData(mSceneList);
+                    notifyDataSetChanged();
+                }else {
+                    mSceneList.get(position).setOpenHeader(false);
+                    httpHolder.mHeaderEffect.setText("关闭状态： ["+mSceneList.get(position).getEffectName()+"]");
+                    FloatingBoxManager.getInstance().openHeaderEffect(false);
+                    FloatingBoxManager.getInstance().updateSceneModelData(mSceneList);
+                    notifyDataSetChanged();
+                }
+            }
+        });
+
     }
 
     @Override

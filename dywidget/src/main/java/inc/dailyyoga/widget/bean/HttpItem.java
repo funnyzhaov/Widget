@@ -14,14 +14,23 @@ package inc.dailyyoga.widget.bean;
 
  * targetVersion:
 
- * Desc:
+ * Desc:修改 2019.10.25
 
  * -----------------------------------------------------------------
 
  */
 public class HttpItem {
-    private String urlFiledName;
-    private String url;
+    private String urlFiledName; //修改的变量名
+    private String url;          //地址
+    private String urlEffectName;//作用名称
+
+    public String getUrlEffectName() {
+        return urlEffectName;
+    }
+
+    public void setUrlEffectName(String urlEffectName) {
+        this.urlEffectName = urlEffectName;
+    }
 
     public String getUrlFiledName() {
         return urlFiledName;
@@ -41,7 +50,10 @@ public class HttpItem {
 
     @Override
     public String toString() {
-        return "urlFiledName='" + urlFiledName + '\'' +
-                ", url='" + url ;
+        return "HttpItem{" +
+                "urlFiledName='" + urlFiledName + '\'' +
+                ", url='" + url + '\'' +
+                ", urlEffectName='" + urlEffectName + '\'' +
+                '}';
     }
 }

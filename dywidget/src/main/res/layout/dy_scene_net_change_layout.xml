@@ -20,13 +20,20 @@
             android:layout_width="30dp"
             android:layout_height="30dp" />
         <TextView
-            android:text="网络环境切换"
+            android:text="环境切换"
             android:gravity="center"
             android:textColor="@color/page_title_color"
             android:textSize="18sp"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent" />
+        <TextView
+            android:textColor="@color/page_title_color"
+            android:id="@+id/iv_channel_name"
+            android:layout_marginRight="10dp"
+            android:text="渠道dd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
         <ImageView
             android:id="@+id/iv_add_scene"
             android:layout_marginRight="10dp"
