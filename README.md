@@ -71,7 +71,81 @@ public class TestApp extends Application {
 ```
 
 
-#### 3.更多API
+#### 3.最新版API
 
-依赖后，可查看源码
+```java
+    
+    //执行初始化
+    void install(Context context,Application application);
+
+    /**
+     * @param managerClassName 管理url的类全名
+     * @param count            场景个数
+     * @param filedName        每一个场景下 不同作用的变量名
+     */
+    setSceneCount(@NonNull String managerClassName, int count, String... filedName)
+
+    /**
+     * 添加渠道信息
+     * @param name
+     * @return
+     */
+    addChannelName(String name)
+
+    /**
+     * @param eventName 事件名称
+     * @param info 事件信息
+     */
+    void addAysInfo(String eventName,String info)
+
+     /**
+     * 添加场景下URl的作用名称
+     * @param name 与添加的url一一对应
+     * @return
+     */
+     addScenesUrlEffectName(String... name);
+
+    /* 添加特殊作用支持的场景
+     * @param key 场景名
+     * @param supportEffectName 特殊作用名
+     * @param url url...
+     * @return
+     */
+    addScenesUrlSupportKv(String key,String supportEffectName,String... url)
+
+    //需要调用此方法注册监听
+     setChangeUrlInitListener(new FloatingBoxManager.ChangeUrlInitListener() {
+                    @Override
+                    public void onRestartInit(SceneModel sceneModel) {
+                     //切换网络场景回调，返回场景信息，若hock不生效，可单独处理网络切换
+                    }
+
+                    @Override
+                    public void onSpecialSceneOpen(boolean open) {
+                     //特殊场景回调 打开或关闭
+                       
+                    }
+                })
+
+    /**
+     * 添加场景
+     * @param key 场景名称
+     * @param url 场景多url
+     * @return
+     */ 
+     addScenesUrl(String key,String... url)
+
+    /**
+     * 添加场景
+     * @param key 场景名称
+     * @param isDefaultScene 是否为默认场景
+     * @param url 场景多url
+     * @return
+     */ 
+
+     addScenesUrl(String key,boolean isDefaultScene,String... url)
+     
+```
+
+  
 
