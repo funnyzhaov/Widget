@@ -34,12 +34,12 @@ public class DebugApp extends TestApp {
         super.onCreate();
         FloatingBoxManager
                 .getInstance()
-                .setSceneCount(API.class.getName(), 3, "BASE_URL", "BASE_H5_URL")
-                .addScenesUrlEffectName("主域名","H5域名")
-                .addScenesUrl("测试环境",true, API.T_BASE_URL, API.T_BASE_H5_URL)
-                .addScenesUrl("正式环境", API.O_BASE_URL, API.O_BASE_H5_URL)
+                .setSceneCount(API.class.getName(), 3, "BASE_URL", "BASE_H5_URL","BASE_URL_2","BASE_URL_3","BASE_URL_4")
+                .addScenesUrlEffectName("主域名","H5域名","","","")
+                .addScenesUrl("测试环境",true, API.T_BASE_URL, API.T_BASE_H5_URL, API.T_BASE_H5_URL, API.T_BASE_H5_URL, API.T_BASE_H5_URL)
+                .addScenesUrl("正式环境", API.O_BASE_URL, API.O_BASE_H5_URL, API.T_BASE_H5_URL, API.T_BASE_H5_URL, API.T_BASE_H5_URL)
                 .setCachedUrlClass(OHttp.class.getName(),"mBaseUrl")
-                .addScenesUrlSupportKv("特殊环境","课程支持", API.T_BASE_URL, API.T_BASE_H5_URL)
+                .addScenesUrlSupportKv("特殊环境","课程支持", API.T_BASE_URL, API.T_BASE_H5_URL, API.T_BASE_H5_URL, API.T_BASE_H5_URL, API.T_BASE_H5_URL)
                 .setChangeUrlInitListener(new FloatingBoxManager.ChangeUrlInitListener() {
                     @Override
                     public void onRestartInit(SceneModel sceneModel) {
