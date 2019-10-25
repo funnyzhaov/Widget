@@ -5,8 +5,8 @@ android {
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 212
-        versionName "2.1.1.1"
+        versionCode 213
+        versionName "2.1.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -42,9 +42,9 @@ publish{
 
     artifactId = 'boxhelper'//项目名称
 
-    publishVersion = '2.1.1.1'//版本号
+    publishVersion = '2.1.2'//版本号
 
-    desc = '2.1.1.1动态切换域名补丁包'//描述
+    desc = '2.1.2动态切换域名升级包'//描述
 
     website = ''//网站，可不填
 

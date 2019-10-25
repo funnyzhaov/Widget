@@ -22,7 +22,7 @@
 
 ### 如何使用
 
-last-version :  [ ![Download](https://api.bintray.com/packages/funnyzhaov/maven/boxhelper/images/download.svg?version=2.1.1) ](https://bintray.com/funnyzhaov/maven/boxhelper/2.1.1/link)
+last-version :  [ ![Download](https://api.bintray.com/packages/funnyzhaov/maven/boxhelper/images/download.svg?version=2.1.2) ](https://bintray.com/funnyzhaov/maven/boxhelper/2.1.2/link)
 
 
 #### 1.build.gradle(app) 中
@@ -46,8 +46,7 @@ public class TestApp extends Application {
                       .addScenesUrl("测试环境",true, API.T_BASE_URL, API.T_BASE_H5_URL)
                       .addScenesUrl("正式环境", API.O_BASE_URL, API.O_BASE_H5_URL)
                       .setCachedUrlClass(OHttp.class.getName(),"mBaseUrl") //可传入网络类保存url的信息
-                      .addScenesUrlSupportKv("特殊环境", "mHeader", "课程支持", "k","v",
-                              API.T_BASE_URL, API.T_BASE_H5_URL)
+                      .addScenesUrlSupportKv("特殊环境", "课程支持",API.T_BASE_URL, API.T_BASE_H5_URL)
                       .addChannelName("华为") //添加渠道
                       .setChangeUrlInitListener(new FloatingBoxManager.ChangeUrlInitListener() {
                           @Override
