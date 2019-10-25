@@ -159,6 +159,13 @@ public class FloatingBoxManager {
         return addScenesNormalUrl(key,url);
     }
 
+    /**
+     * 添加特殊作用支持的场景
+     * @param key 场景名
+     * @param supportEffectName 特殊作用名
+     * @param url url...
+     * @return
+     */
     public FloatingBoxManager addScenesUrlSupportKv(String key,String supportEffectName,String... url){
         return addScene(key,supportEffectName,url);
     }
