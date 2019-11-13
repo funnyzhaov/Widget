@@ -22,7 +22,7 @@
 
 ### 如何使用
 
-last-version :  [ ![Download](https://api.bintray.com/packages/funnyzhaov/maven/boxhelper/images/download.svg?version=2.1.5) ](https://bintray.com/funnyzhaov/maven/boxhelper/2.1.5/link)
+last-version :  [ ![Download](https://api.bintray.com/packages/funnyzhaov/maven/boxhelper/images/download.svg?version=2.1.6) ](https://bintray.com/funnyzhaov/maven/boxhelper/2.1.6/link)
 
 
 #### 1.build.gradle(app) 中
@@ -84,6 +84,15 @@ public class TestApp extends Application {
      * @param filedName        每一个场景下 不同作用的变量名
      */
     setSceneCount(@NonNull String managerClassName, int count, String... filedName)
+    
+     /**
+      * 设置缓存url类的信息,调用此方法，可以立即修改网络库中的base url
+      *
+      * @param cachedUrlClass     二次缓存url的类
+      * @param cachedUrlFiledName 二次缓存url的变量名
+      * @return
+      */
+    setCachedUrlClass(String cachedUrlClass, String cachedUrlFiledName) 
 
     /**
      * 添加渠道信息

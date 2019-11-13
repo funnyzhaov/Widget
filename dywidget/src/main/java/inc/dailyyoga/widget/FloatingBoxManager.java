@@ -342,7 +342,7 @@ public class FloatingBoxManager {
 
         if (hasCachedClass){
             try {
-                changeHttpUrlAll(sceneKey);
+                changeHttpBaseUrlRuntime(sceneKey);
             } catch (SceneException e) {
                 e.printStackTrace();
             }
@@ -413,6 +413,13 @@ public class FloatingBoxManager {
      * @param url url...
      */
     private FloatingBoxManager addScenesNormalUrl(String key,String... url){
+        if (mHttpManagerMap.containsKey(key)){
+            mHttpManagerMap.remove(key);
+            SceneModel removeScene=new SceneModel();
+            removeScene.setKey(key);
+            mSceneModel.remove(removeScene);
+        }
+
         List<HttpItem> list = new ArrayList<>();
         for (int j = 0; j < mModifyFiledNameList.size(); j++) {
             HttpItem httpItem = new HttpItem();
@@ -449,16 +456,7 @@ public class FloatingBoxManager {
      * @return
      */
     private FloatingBoxManager addScene(String key,String supportEffectName,String... url){
-
         boolean isSupport=true;
-        if (!isHasCachedClass()){
-            try {
-                throw new SceneException("请调用setCachedUrlClass设置自定义网络库的信息");
-            } catch (SceneException e) {
-                e.printStackTrace();
-            }
-            isSupport=false;
-        }
         addScenesUrlSupport(key,isSupport,supportEffectName,url);
         return this;
     }
@@ -489,28 +487,12 @@ public class FloatingBoxManager {
         }
         SceneModel sceneModel=new SceneModel();
         sceneModel.setKey(key);
-        sceneModel.setEffectName(effectName);
-
         if (supportHeader){
             sceneModel.setSupportHeader(true);
+            sceneModel.setEffectName(effectName);
         }
         mSceneModel.add(sceneModel);
     }
-
-    /**
-     * 判断是否设置了缓存类
-     * @return
-     */
-    private boolean isHasCachedClass(){
-        if (mCachedUrlClassName == null || "".equals(mCachedUrlClassName)
-                || mCachedUrlFiledName == null || "".equals(mCachedUrlFiledName)) {
-            return false;
-        }else {
-            return true;
-        }
-    }
-
-
 
     /**
      * 改变url 初始管理类生效
@@ -545,7 +527,7 @@ public class FloatingBoxManager {
     }
 
 
-    private void changeHttpUrlAll(String sceneKey) throws SceneException{
+    private void changeHttpBaseUrlRuntime(String sceneKey) throws SceneException{
         //判断是否设置了缓存类
         if (mCachedUrlClassName == null || "".equals(mCachedUrlClassName)
                 || mCachedUrlFiledName == null || "".equals(mCachedUrlFiledName)) {

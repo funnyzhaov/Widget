@@ -4,10 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_marginBottom="10dp"
-    android:background="#FFFFFF"
+    android:background="@color/page_default_bg"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <FrameLayout
+        android:background="@color/page_default_bg"
         android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -40,7 +41,7 @@
         android:layout_gravity="center"
         android:id="@+id/tv_scene_change"
         android:text="点击切换"
-        android:background="@drawable/dy_scene_net_button_bg"
+        android:background="@color/white"
         android:gravity="left|center_vertical"
         android:textColor="@color/page_sec_title_color"
         android:textSize="14sp"

@@ -38,7 +38,6 @@ public class DebugApp extends TestApp {
                 .addScenesUrlEffectName("主域名","H5域名","","","")
                 .addScenesUrl("测试环境",true, API.T_BASE_URL, API.T_BASE_H5_URL, API.T_BASE_H5_URL, API.T_BASE_H5_URL, API.T_BASE_H5_URL)
                 .addScenesUrl("正式环境", API.O_BASE_URL, API.O_BASE_H5_URL, API.T_BASE_H5_URL, API.T_BASE_H5_URL, API.T_BASE_H5_URL)
-                .setCachedUrlClass(OHttp.class.getName(),"mBaseUrl")
                 .addScenesUrlSupportKv("特殊环境","课程支持", API.T_BASE_URL, API.T_BASE_H5_URL, API.T_BASE_H5_URL, API.T_BASE_H5_URL, API.T_BASE_H5_URL)
                 .setChangeUrlInitListener(new FloatingBoxManager.ChangeUrlInitListener() {
                     @Override
@@ -48,7 +47,7 @@ public class DebugApp extends TestApp {
 
                     @Override
                     public void onSpecialSceneOpen(boolean open) {
-                        Toast.makeText(getApplicationContext(), "当前"+open, Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getApplicationContext(), "当前"+open, Toast.LENGTH_SHORT).show();
                     }
                 })
                 .addChannelName("华为") //添加渠道
