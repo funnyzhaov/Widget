@@ -9,6 +9,7 @@
 网络环境切换 
 
 > 数据同学测试埋点，告别一个事件3分钟刷网页等待的痛苦。实时查看，一组测完后，刷新网页对照即可。
+ 按事件名称筛选，告别繁杂的多事件
 
 埋点事件统计显示
 
@@ -22,7 +23,7 @@
 
 ### 如何使用
 
-last-version :  [ ![Download](https://api.bintray.com/packages/funnyzhaov/maven/boxhelper/images/download.svg?version=2.1.5) ](https://bintray.com/funnyzhaov/maven/boxhelper/2.1.5/link)
+last-version :  [ ![Download](https://api.bintray.com/packages/funnyzhaov/maven/boxhelper/images/download.svg?version=2.2.0) ](https://bintray.com/funnyzhaov/maven/boxhelper/2.2.0/link)
 
 
 #### 1.build.gradle(app) 中
@@ -84,6 +85,15 @@ public class TestApp extends Application {
      * @param filedName        每一个场景下 不同作用的变量名
      */
     setSceneCount(@NonNull String managerClassName, int count, String... filedName)
+    
+     /**
+      * 设置缓存url类的信息,调用此方法，可以立即修改网络库中的base url
+      *
+      * @param cachedUrlClass     二次缓存url的类
+      * @param cachedUrlFiledName 二次缓存url的变量名
+      * @return
+      */
+    setCachedUrlClass(String cachedUrlClass, String cachedUrlFiledName) 
 
     /**
      * 添加渠道信息

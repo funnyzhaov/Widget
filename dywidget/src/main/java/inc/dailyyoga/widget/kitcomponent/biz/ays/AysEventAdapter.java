@@ -1,4 +1,4 @@
-package inc.dailyyoga.widget.kitcomponent.adapter;
+package inc.dailyyoga.widget.kitcomponent.biz.ays;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -26,6 +26,12 @@ public class AysEventAdapter extends RecyclerView.Adapter<AysEventAdapter.EventA
         mInflater=LayoutInflater.from(mContext);
         mList.clear();
         mList.addAll(list);
+    }
+
+    public void updateData(List<AysItem> list){
+        mList.clear();
+        mList.addAll(list);
+        notifyDataSetChanged();
     }
 
 

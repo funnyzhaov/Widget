@@ -1,57 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_marginBottom="10dp"
-    android:background="#FFFFFF"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:background="@color/white"
+    android:layout_height="100dp">
+    <View
+        android:background="#F1F1F1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
     <FrameLayout
-        android:layout_gravity="center"
+        android:layout_centerInParent="true"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:id="@+id/tv_scene_change"
+        android:background="@color/page_default_bg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
-            android:layout_gravity="center"
+            android:layout_gravity="left|center_vertical"
             android:id="@+id/tv_scene"
-            android:drawablePadding="2dp"
             android:gravity="center"
             tools:text="线上环境"
-            android:textColor="@color/page_title_color"
-            android:textSize="14sp"
-            android:layout_width="match_parent"
-            android:layout_height="60dp" />
+            android:textColor="@color/page_sec_title_color"
+            android:textSize="18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
         <ImageView
             android:id="@+id/iv_arrow"
-            android:visibility="gone"
-            android:layout_gravity="left"
+            android:layout_gravity="right|center_vertical"
             android:background="@drawable/dy_scene_arrow_icon"
-            android:layout_width="32dp"
-            android:layout_height="32dp" />
+            android:layout_width="24dp"
+            android:layout_height="24dp" />
     </FrameLayout>
 
-    <View
-        android:background="@color/page_split_color"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"/>
 
     <TextView
-        android:padding="2dp"
-        android:layout_gravity="center"
-        android:id="@+id/tv_scene_change"
-        android:text="点击切换"
-        android:background="@drawable/dy_scene_net_button_bg"
-        android:gravity="left|center_vertical"
-        android:textColor="@color/page_sec_title_color"
-        android:textSize="14sp"
-        android:layout_width="match_parent"
-        android:layout_height="50dp" />
-    <TextView
+        android:visibility="gone"
+        android:layout_below="@+id/tv_scene_change"
+        android:layout_marginTop="16dp"
         android:id="@+id/tv_open_header_effect"
         tools:text="开启课程支持"
+        android:layout_marginLeft="16dp"
+        android:textSize="14sp"
         android:textColor="@color/page_sec_title_color"
         android:gravity="center_vertical"
         android:layout_width="match_parent"
-        android:layout_height="50dp" />
-
-</LinearLayout>
+        android:layout_height="30dp" />
+</RelativeLayout>

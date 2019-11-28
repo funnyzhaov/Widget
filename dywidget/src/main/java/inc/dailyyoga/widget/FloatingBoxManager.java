@@ -26,6 +26,7 @@ import inc.dailyyoga.widget.cache.SpHelper;
 import inc.dailyyoga.widget.exception.SceneException;
 import inc.dailyyoga.widget.kitcomponent.DyAysKit;
 import inc.dailyyoga.widget.kitcomponent.DyEnvSwitchKit;
+import inc.dailyyoga.widget.kitcomponent.biz.ays.FilterEventNameBean;
 
 /*
 
@@ -98,6 +99,8 @@ public class FloatingBoxManager {
     //统计
     private List<AysItem> mAysList=new ArrayList<>();
     private String mChannelName;
+
+    private List<String> mFilterNameList=new ArrayList<>();
 
 
 
@@ -277,8 +280,9 @@ public class FloatingBoxManager {
         }
         kits.add(new DyEnvSwitchKit());
         kits.add(new DyAysKit());
-        DoraemonKit.install(application, kits);
+
         DoraemonKit.disableUpload();//禁止上传信息
+        DoraemonKit.install(application, kits);
     }
 
     /*本地化存储网络队列---------------*/
@@ -342,7 +346,7 @@ public class FloatingBoxManager {
 
         if (hasCachedClass){
             try {
-                changeHttpUrlAll(sceneKey);
+                changeHttpBaseUrlRuntime(sceneKey);
             } catch (SceneException e) {
                 e.printStackTrace();
             }
@@ -378,7 +382,7 @@ public class FloatingBoxManager {
      * 添加埋点信息
      */
     public void addAysInfo(String eventName,String info){
-        if (mAysList.size()>10){
+        if (mAysList.size()>30){
             mAysList.remove(0);
         }
         //存储事件时间  名称 信息 到事件缓存中
@@ -399,6 +403,15 @@ public class FloatingBoxManager {
         return mAysList;
     }
 
+    public List<String> getFilterEventNameList(){
+        return mFilterNameList;
+    }
+
+    public void setFilterNameList(List<String> mFilterNameList) {
+        this.mFilterNameList.clear();
+        this.mFilterNameList.addAll(mFilterNameList);
+    }
+
     public void clearEventList(){
         mAysList.clear();
     }
@@ -413,6 +426,13 @@ public class FloatingBoxManager {
      * @param url url...
      */
     private FloatingBoxManager addScenesNormalUrl(String key,String... url){
+        if (mHttpManagerMap.containsKey(key)){
+            mHttpManagerMap.remove(key);
+            SceneModel removeScene=new SceneModel();
+            removeScene.setKey(key);
+            mSceneModel.remove(removeScene);
+        }
+
         List<HttpItem> list = new ArrayList<>();
         for (int j = 0; j < mModifyFiledNameList.size(); j++) {
             HttpItem httpItem = new HttpItem();
@@ -449,16 +469,7 @@ public class FloatingBoxManager {
      * @return
      */
     private FloatingBoxManager addScene(String key,String supportEffectName,String... url){
-
         boolean isSupport=true;
-        if (!isHasCachedClass()){
-            try {
-                throw new SceneException("请调用setCachedUrlClass设置自定义网络库的信息");
-            } catch (SceneException e) {
-                e.printStackTrace();
-            }
-            isSupport=false;
-        }
         addScenesUrlSupport(key,isSupport,supportEffectName,url);
         return this;
     }
@@ -489,28 +500,12 @@ public class FloatingBoxManager {
         }
         SceneModel sceneModel=new SceneModel();
         sceneModel.setKey(key);
-        sceneModel.setEffectName(effectName);
-
         if (supportHeader){
             sceneModel.setSupportHeader(true);
+            sceneModel.setEffectName(effectName);
         }
         mSceneModel.add(sceneModel);
     }
-
-    /**
-     * 判断是否设置了缓存类
-     * @return
-     */
-    private boolean isHasCachedClass(){
-        if (mCachedUrlClassName == null || "".equals(mCachedUrlClassName)
-                || mCachedUrlFiledName == null || "".equals(mCachedUrlFiledName)) {
-            return false;
-        }else {
-            return true;
-        }
-    }
-
-
 
     /**
      * 改变url 初始管理类生效
@@ -545,7 +540,7 @@ public class FloatingBoxManager {
     }
 
 
-    private void changeHttpUrlAll(String sceneKey) throws SceneException{
+    private void changeHttpBaseUrlRuntime(String sceneKey) throws SceneException{
         //判断是否设置了缓存类
         if (mCachedUrlClassName == null || "".equals(mCachedUrlClassName)
                 || mCachedUrlFiledName == null || "".equals(mCachedUrlFiledName)) {

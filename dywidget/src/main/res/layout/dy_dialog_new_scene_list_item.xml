@@ -14,8 +14,8 @@
         android:layout_height="40dp"/>
     <EditText
         android:paddingLeft="16dp"
-        android:textColor="@color/page_title_color"
-        android:background="@android:color/white"
+        android:textColor="@color/page_sec_title_color"
+        android:background="@color/white"
         android:hint="http://api.dailyyoga.com/h2oapiv2/"
         android:id="@+id/et_input_scene_host"
         android:maxLines="3"

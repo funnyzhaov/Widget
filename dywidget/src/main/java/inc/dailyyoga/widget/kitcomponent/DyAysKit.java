@@ -7,7 +7,7 @@ import com.didichuxing.doraemonkit.kit.Category;
 import com.didichuxing.doraemonkit.kit.IKit;
 
 import inc.dailyyoga.widget.R;
-import inc.dailyyoga.widget.kitcomponent.biz.AysBroadActivity;
+import inc.dailyyoga.widget.kitcomponent.biz.ays.AysBroadActivity;
 
 /**
  * 事件统计组件

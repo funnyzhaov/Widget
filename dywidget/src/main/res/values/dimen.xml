@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--ToolBar高度-->
+    <dimen name="tool_bar_height">56dp</dimen>
+
+    <!-- ToolBar 图标与页面的间距 -->
+    <dimen name="tool_bar_left_ic_left">16dp</dimen>
+    <dimen name="tool_bar_right_ic_right">16dp</dimen>
+
+    <!--ToolBar 图标大小-->
+    <dimen name="tool_bar_icon">24dp</dimen>
+
+    <!--ToolBar 标题大小-->
+    <dimen name="tool_bar_title_size">20sp</dimen>
+</resources>
