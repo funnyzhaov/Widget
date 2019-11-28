@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -167,7 +168,7 @@ public class FloatingHttpChangeAdapter extends RecyclerView.Adapter<FloatingHttp
 
     static class HttpHolder extends RecyclerView.ViewHolder {
         private TextView mScene;
-        private TextView mChange;
+        private FrameLayout mChange;
         private ImageView mArrow;
         private TextView mHeaderEffect;//请求头作用支持
 

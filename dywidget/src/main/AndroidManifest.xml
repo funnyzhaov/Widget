@@ -9,7 +9,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".kitcomponent.biz.NetChangeBroadActivity"/>
-        <activity android:name=".kitcomponent.biz.AysBroadActivity"/>
+        <activity android:name=".kitcomponent.biz.ays.AysBroadActivity"/>
+        <activity android:name=".kitcomponent.biz.ays.FilterEventActivity"/>
     </application>
 
 </manifest>

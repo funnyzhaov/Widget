@@ -26,6 +26,7 @@ import inc.dailyyoga.widget.cache.SpHelper;
 import inc.dailyyoga.widget.exception.SceneException;
 import inc.dailyyoga.widget.kitcomponent.DyAysKit;
 import inc.dailyyoga.widget.kitcomponent.DyEnvSwitchKit;
+import inc.dailyyoga.widget.kitcomponent.biz.ays.FilterEventNameBean;
 
 /*
 
@@ -98,6 +99,8 @@ public class FloatingBoxManager {
     //统计
     private List<AysItem> mAysList=new ArrayList<>();
     private String mChannelName;
+
+    private List<String> mFilterNameList=new ArrayList<>();
 
 
 
@@ -277,8 +280,9 @@ public class FloatingBoxManager {
         }
         kits.add(new DyEnvSwitchKit());
         kits.add(new DyAysKit());
-        DoraemonKit.install(application, kits);
+
         DoraemonKit.disableUpload();//禁止上传信息
+        DoraemonKit.install(application, kits);
     }
 
     /*本地化存储网络队列---------------*/
@@ -378,7 +382,7 @@ public class FloatingBoxManager {
      * 添加埋点信息
      */
     public void addAysInfo(String eventName,String info){
-        if (mAysList.size()>10){
+        if (mAysList.size()>30){
             mAysList.remove(0);
         }
         //存储事件时间  名称 信息 到事件缓存中
@@ -397,6 +401,15 @@ public class FloatingBoxManager {
 
     public List<AysItem> getEventList(){
         return mAysList;
+    }
+
+    public List<String> getFilterEventNameList(){
+        return mFilterNameList;
+    }
+
+    public void setFilterNameList(List<String> mFilterNameList) {
+        this.mFilterNameList.clear();
+        this.mFilterNameList.addAll(mFilterNameList);
     }
 
     public void clearEventList(){
