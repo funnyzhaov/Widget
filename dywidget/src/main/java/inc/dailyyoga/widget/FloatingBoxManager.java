@@ -277,6 +277,10 @@ public class FloatingBoxManager {
             for (int i = 0; i < mCachedDefaultItems.size(); i++) {
                 mCachedDefaultItems.get(i).setUrlEffectName(mFiledEffectNameList.get(i));
             }
+        }else {
+            for (int i = 0; i < mCachedDefaultItems.size(); i++) {
+                mCachedDefaultItems.get(i).setUrlEffectName("默认域名"+(i+1));
+            }
         }
         kits.add(new DyEnvSwitchKit());
         kits.add(new DyAysKit());

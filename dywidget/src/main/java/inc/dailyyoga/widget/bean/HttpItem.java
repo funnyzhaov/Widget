@@ -22,7 +22,7 @@ package inc.dailyyoga.widget.bean;
 public class HttpItem {
     private String urlFiledName; //修改的变量名
     private String url;          //地址
-    private String urlEffectName="";//作用名称
+    private String urlEffectName="默认域名";//作用名称
 
     public String getUrlEffectName() {
         return urlEffectName;

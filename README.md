@@ -23,7 +23,7 @@
 
 ### 如何使用
 
-last-version :  [ ![Download](https://api.bintray.com/packages/funnyzhaov/maven/boxhelper/images/download.svg?version=2.2.0) ](https://bintray.com/funnyzhaov/maven/boxhelper/2.2.0/link)
+last-version :  [ ![Download](https://api.bintray.com/packages/funnyzhaov/maven/boxhelper/images/download.svg?version=2.3.0) ](https://bintray.com/funnyzhaov/maven/boxhelper/2.3.0/link)
 
 
 #### 1.build.gradle(app) 中

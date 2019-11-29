@@ -31,9 +31,9 @@
         android:layout_height="40dp"/>
     <EditText
         android:paddingLeft="16dp"
-        android:textColor="@color/page_title_color"
+        android:textColor="@color/page_sec_title_color"
         android:id="@+id/et_input_scene_name"
-        android:background="@android:color/white"
+        android:background="@color/white"
         android:hint="请输入一个环境名称： 示例 飞哥"
         android:layout_width="match_parent"
         android:layout_height="50dp"/>
