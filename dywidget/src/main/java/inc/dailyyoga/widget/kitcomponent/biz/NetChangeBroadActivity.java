@@ -1,6 +1,7 @@
 package inc.dailyyoga.widget.kitcomponent.biz;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -46,7 +47,12 @@ public class NetChangeBroadActivity extends DyBaseActivity {
         mAddNetSceneDialog.setAddNetSceneListener(new AddNetSceneDialog.AddNetSceneListener() {
             @Override
             public void onAddSuccess() {
-                mHttpChangeAdapter.updateData(FloatingBoxManager.getInstance().getSceneModelArray());
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mHttpChangeAdapter.updateData(FloatingBoxManager.getInstance().getSceneModelArray());
+                    }
+                },200);
             }
         });
     }

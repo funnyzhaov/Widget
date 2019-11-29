@@ -48,21 +48,19 @@ public class FloatingHttpChangeAdapter extends RecyclerView.Adapter<FloatingHttp
     public FloatingHttpChangeAdapter(Context context, List<SceneModel> scenes) {
         mContext = context;
         mInflater = LayoutInflater.from(context);
+        mSceneDeleteDialog=new DeleteSceneHintDialog(mContext);
+        mSceneDeleteDialog.setRemoveSceneListener(new DeleteSceneHintDialog.RemoveSceneListener() {
+            @Override
+            public void onRemoveSuccess() {
+                updateData(FloatingBoxManager.getInstance().getSceneModelArray());
+            }
+        });
         updateData(scenes);
     }
 
     public void updateData(List<SceneModel> scenes){
         mSceneList.clear();
         mSceneList.addAll(scenes);
-        mSceneDeleteDialog=new DeleteSceneHintDialog(mContext);
-        mSceneDeleteDialog.setRemoveSceneListener(new DeleteSceneHintDialog.RemoveSceneListener() {
-            @Override
-            public void onRemoveSuccess() {
-                mSceneList.clear();
-                mSceneList.addAll(FloatingBoxManager.getInstance().getSceneModelArray());
-                updateDataCommon();
-            }
-        });
         updateDataCommon();
     }
 
@@ -95,7 +93,7 @@ public class FloatingHttpChangeAdapter extends RecyclerView.Adapter<FloatingHttp
             httpHolder.mArrow.setVisibility(View.GONE);
         }
         httpHolder.mScene.setText(mSceneList.get(position).getKey());
-        httpHolder.mChange.setOnClickListener(new View.OnClickListener() {
+        httpHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FloatingBoxManager.getInstance().changeHttpUrl(mSceneList.get(position).getKey());
@@ -168,14 +166,12 @@ public class FloatingHttpChangeAdapter extends RecyclerView.Adapter<FloatingHttp
 
     static class HttpHolder extends RecyclerView.ViewHolder {
         private TextView mScene;
-        private FrameLayout mChange;
         private ImageView mArrow;
         private TextView mHeaderEffect;//请求头作用支持
 
         public HttpHolder(@NonNull View itemView) {
             super(itemView);
             mScene = itemView.findViewById(R.id.tv_scene);
-            mChange = itemView.findViewById(R.id.tv_scene_change);
             mArrow = itemView.findViewById(R.id.iv_arrow);
             mHeaderEffect=itemView.findViewById(R.id.tv_open_header_effect);
         }
