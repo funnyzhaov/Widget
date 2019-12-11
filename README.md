@@ -23,7 +23,7 @@
 
 ### 如何使用
 
-last-version :  [ ![Download](https://api.bintray.com/packages/funnyzhaov/maven/boxhelper/images/download.svg?version=2.3.0) ](https://bintray.com/funnyzhaov/maven/boxhelper/2.3.0/link)
+last-version :  [ ![Download](https://api.bintray.com/packages/funnyzhaov/maven/boxhelper/images/download.svg?version=2.4.0) ](https://bintray.com/funnyzhaov/maven/boxhelper/2.4.0/link)
 
 
 #### 1.build.gradle(app) 中
@@ -75,6 +75,24 @@ public class TestApp extends Application {
 #### 3.最新版API
 
 ```java
+
+     /**
+      * 设置当前场景的版本号
+      *
+      * 调用此方法的场景在于当代码初始化时配置的场景发生变化时，来增加版本号或者递减
+      *
+      * 如果设置的版本号与盒子内存储的版本号不同，则会清除本地缓存，按照最新的场景配置来初始化盒子网络切换
+      *
+      * 最佳实践：配置变化时，使用0与1来交替设置即可
+      *
+      * @param versionCode 如果不设置，版本号默认为0
+      * @return
+      */
+    public FloatingBoxManager setSceneVersionCode(int versionCode){
+        mSceneVersionCode=versionCode;
+        return this;
+    }
+
     
     //执行初始化
     void install(Context context,Application application);
