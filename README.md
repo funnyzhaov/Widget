@@ -28,9 +28,20 @@ last-version :  [ ![Download](https://api.bintray.com/packages/funnyzhaov/maven/
 
 #### 1.build.gradle(app) 中
 
-```
-implementation 'com.dailyyoga:boxhelper:last-version'
+在Debug模式下依赖
 
+```
+ debugImplementation 'com.dailyyoga:boxhelper:last-version'
+
+```
+
+最新版2.3.0依赖时，编译器若出现 **找不到com.google.common.util.concurrent.ListenableFuture类**
+添加排除依赖项即可。
+
+```
+ debugImplementation  ('com.dailyyoga:boxhelper:2.3.0'){
+        exclude group: 'com.google.guava'
+    }
 ```
 
 #### 2.Application中初始化
