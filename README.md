@@ -35,11 +35,11 @@ last-version :  [ ![Download](https://api.bintray.com/packages/funnyzhaov/maven/
 
 ```
 
-最新版2.3.0依赖时，编译器若出现 **找不到com.google.common.util.concurrent.ListenableFuture类**
+最新版2.4.0依赖时，编译器若出现 **找不到com.google.common.util.concurrent.ListenableFuture类**
 添加排除依赖项即可。
 
 ```
- debugImplementation  ('com.dailyyoga:boxhelper:2.3.0'){
+ debugImplementation  ('com.dailyyoga:boxhelper:2.4.0'){
         exclude group: 'com.google.guava'
     }
 ```
