@@ -27,7 +27,6 @@ public class NetChangeBroadActivity extends DyBaseActivity {
     //渠道信息
     private TextView mChannelName;
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -26,7 +26,6 @@ import inc.dailyyoga.widget.cache.SpHelper;
 import inc.dailyyoga.widget.exception.SceneException;
 import inc.dailyyoga.widget.kitcomponent.DyAysKit;
 import inc.dailyyoga.widget.kitcomponent.DyEnvSwitchKit;
-import inc.dailyyoga.widget.kitcomponent.biz.ays.FilterEventNameBean;
 
 /*
 
@@ -49,7 +48,7 @@ import inc.dailyyoga.widget.kitcomponent.biz.ays.FilterEventNameBean;
  */
 public class FloatingBoxManager {
     private List<IKit> kits=new ArrayList<>();
-    private String TAG = FloatingBoxManager.class.getSimpleName();
+    private final String TAG = FloatingBoxManager.class.getSimpleName();
     private Context mContext;
 
     private static FloatingBoxManager mInstance; //单例
@@ -61,6 +60,7 @@ public class FloatingBoxManager {
     private List<String> mModifyFiledNameList;
 
     //key
+    private final String SCENE_VERSION_CODE="SCENE_VERSION_CODE";
     private final String HTTP_SCENE_KEY = "HTTP_SCENE_KEY";
     //网络场景队列key
     private final String HTTP_SCENE_QUEUE_KEY = "HTTP_SCENE_QUEUE_KEY";
@@ -91,7 +91,8 @@ public class FloatingBoxManager {
         return mCachedDefaultItems;
     }
 
-
+    //场景版本号
+    private int mSceneVersionCode=0;
 
 
     /*------------------------事件统计---------------------*/
@@ -117,6 +118,24 @@ public class FloatingBoxManager {
             }
         }
         return mInstance;
+    }
+
+
+    /**
+     * 设置当前场景的版本号
+     *
+     * 调用此方法的场景在于当代码初始化时配置的场景发生变化时，来增加版本号或者递减
+     *
+     * 如果设置的版本号与盒子内存储的版本号不同，则会清除本地缓存，按照最新的场景配置来初始化盒子网络切换
+     *
+     * 最佳实践：配置变化时，使用0与1来交替设置即可
+     *
+     * @param versionCode 如果不设置，版本号默认为0
+     * @return
+     */
+    public FloatingBoxManager setSceneVersionCode(int versionCode){
+        mSceneVersionCode=versionCode;
+        return this;
     }
 
     /**
@@ -232,7 +251,23 @@ public class FloatingBoxManager {
      */
     public void install(Context context,Application application) {
         mContext = context;
-        SpHelper.initSpHelper(mContext, TAG);
+        SpHelper.initSpHelper(context, TAG);
+        //版本检查
+        if (SpHelper.getSpHelper().hasKey(SCENE_VERSION_CODE)){
+            int oldVersionCode=SpHelper.getSpHelper().getIntValue(SCENE_VERSION_CODE);
+            if (oldVersionCode!=mSceneVersionCode){
+                SpHelper.getSpHelper().putIntValue(SCENE_VERSION_CODE,mSceneVersionCode);
+                SpHelper.getSpHelper().clearKey(HTTP_SCENE_QUEUE_KEY).doCommit();
+                SpHelper.getSpHelper().clearKey(HTTP_SCENE_MODEL_KEY).doCommit();
+                SpHelper.getSpHelper().clearKey(HTTP_SCENE_KEY).doCommit();
+
+                SpHelper.getSpHelper().putIntValue(SCENE_VERSION_CODE,mSceneVersionCode).doCommit();
+            }
+        }else {
+            SpHelper.getSpHelper().putIntValue(SCENE_VERSION_CODE,mSceneVersionCode).doCommit();
+        }
+
+
 
         //检查本地存储，如果有url,替换类的变量值
         boolean isUrlCache = SpHelper.getSpHelper().hasKey(HTTP_SCENE_KEY);
