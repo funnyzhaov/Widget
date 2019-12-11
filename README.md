@@ -43,6 +43,10 @@ last-version :  [ ![Download](https://api.bintray.com/packages/funnyzhaov/maven/
         exclude group: 'com.google.guava'
     }
 ```
+ debugImplementation  ('com.dailyyoga:boxhelper:2.3.0'){
+        exclude group: 'com.google.guava'
+    }
+```
 
 #### 2.Application中初始化
 
