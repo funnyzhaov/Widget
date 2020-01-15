@@ -26,6 +26,7 @@ import inc.dailyyoga.widget.cache.SpHelper;
 import inc.dailyyoga.widget.exception.SceneException;
 import inc.dailyyoga.widget.kitcomponent.DyAysKit;
 import inc.dailyyoga.widget.kitcomponent.DyEnvSwitchKit;
+import inc.dailyyoga.widget.kitcomponent.UIComponentKit;
 
 /*
 
@@ -319,6 +320,7 @@ public class FloatingBoxManager {
         }
         kits.add(new DyEnvSwitchKit());
         kits.add(new DyAysKit());
+        kits.add(new UIComponentKit());
 
         DoraemonKit.disableUpload();//禁止上传信息
         DoraemonKit.install(application, kits);

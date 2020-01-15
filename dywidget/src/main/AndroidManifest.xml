@@ -11,6 +11,7 @@
         <activity android:name=".kitcomponent.biz.NetChangeBroadActivity"/>
         <activity android:name=".kitcomponent.biz.ays.AysBroadActivity"/>
         <activity android:name=".kitcomponent.biz.ays.FilterEventActivity"/>
+        <activity android:name=".kitcomponent.biz.UIComponentWelcomeActivity"/>
     </application>
 
 </manifest>
