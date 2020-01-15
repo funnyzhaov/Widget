@@ -23,7 +23,7 @@
 
 ### 如何使用
 
-last-version :  [ ![Download](https://api.bintray.com/packages/funnyzhaov/maven/boxhelper/images/download.svg?version=2.4.0) ](https://bintray.com/funnyzhaov/maven/boxhelper/2.4.0/link)
+last-version :  [ ![Download](https://api.bintray.com/packages/funnyzhaov/maven/boxhelper/images/download.svg?version=2.4.1) ](https://bintray.com/funnyzhaov/maven/boxhelper/2.4.1/link)
 
 
 #### 1.build.gradle(app) 中
@@ -35,14 +35,6 @@ last-version :  [ ![Download](https://api.bintray.com/packages/funnyzhaov/maven/
 
 ```
 
-最新版2.4.0依赖时，编译器若出现 **找不到com.google.common.util.concurrent.ListenableFuture类**
-添加排除依赖项即可。
-
-```
- debugImplementation  ('com.dailyyoga:boxhelper:2.4.0'){
-        exclude group: 'com.google.guava'
-    }
-```
 
 #### 2.Application中初始化
 
