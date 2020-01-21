@@ -3,10 +3,10 @@ apply plugin: 'com.novoda.bintray-release'
 android {
     compileSdkVersion 28
     defaultConfig {
-        minSdkVersion 19
+        minSdkVersion 16
         targetSdkVersion 28
-        versionCode 20401
-        versionName "2.4.1"
+        versionCode 20402
+        versionName "2.4.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -44,9 +44,9 @@ publish{
 
     artifactId = 'boxhelper'//项目名称
 
-    publishVersion = '2.4.1'//版本号
+    publishVersion = '2.4.2'//版本号
 
-    desc = '2.4.1 diid组件升级 '//描述
+    desc = '2.4.2 diid组件升级 '//描述
 
     website = ''//网站，可不填
 
