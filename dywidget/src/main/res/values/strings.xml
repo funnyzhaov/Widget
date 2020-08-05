@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">widget</string>
-    <string name="dy_kit_biz_env_switch">网络切换</string>
-    <string name="dy_kit_biz_ays">事件统计</string>
-    <string name="dy_kit_biz_uic">UI组件库</string>
+    <string name="fz_kit_biz_env_switch">网络切换</string>
+    <string name="fz_kit_biz_ays">事件统计</string>
 </resources>

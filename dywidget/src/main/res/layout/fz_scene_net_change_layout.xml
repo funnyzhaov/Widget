@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_broad"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/page_default_bg">
+    <LinearLayout
+        android:background="@color/tool_bar_color"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tool_bar_height"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/dy_iv_back"
+            android:layout_marginLeft="@dimen/tool_bar_left_ic_left"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/fz_page_back"
+            android:layout_width="@dimen/tool_bar_icon"
+            android:layout_height="@dimen/tool_bar_icon" />
+        <TextView
+            android:text="环境切换"
+            android:gravity="center"
+            android:textColor="@color/page_title_color"
+            android:textSize="@dimen/tool_bar_title_size"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+        <TextView
+            android:textColor="@color/page_title_color"
+            android:id="@+id/iv_channel_name"
+            android:layout_marginRight="16dp"
+            android:text="渠道dd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <ImageView
+            android:id="@+id/iv_add_scene"
+            android:layout_marginRight="@dimen/tool_bar_right_ic_right"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/fz_event_switch_add"
+            android:layout_width="@dimen/tool_bar_icon"
+            android:layout_height="@dimen/tool_bar_icon"/>
+    </LinearLayout>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:background="@color/white"
+        android:id="@+id/change_http_rv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+</LinearLayout>

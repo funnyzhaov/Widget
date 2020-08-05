@@ -5,8 +5,8 @@ android {
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 20402
-        versionName "2.4.2"
+        versionCode 30000
+        versionName "3.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -32,21 +32,21 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.android.support:recyclerview-v7:28.0.0'
-    api ('com.didichuxing.doraemonkit:doraemonkit:2.2.2'){
-        exclude group: 'com.google.guava'
-    }
+    implementation 'com.didichuxing.doraemonkit:doraemonkit:3.0.7.2'
+    implementation 'com.google.code.gson:gson:2.8.6'
+
 }
 publish{
 
     userOrg = 'funnyzhaov'//bintray.com你的用户名
 
-    groupId = 'com.dailyyoga'//依赖时的包名前缀
+    groupId = 'com.funnyzhao'//依赖时的包名前缀
 
     artifactId = 'boxhelper'//项目名称
 
-    publishVersion = '2.4.2'//版本号
+    publishVersion = '3.0.0'//版本号
 
-    desc = '2.4.2 diid组件升级 '//描述
+    desc = '3.0.0 '//描述
 
     website = ''//网站，可不填
 

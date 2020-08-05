@@ -23,7 +23,7 @@
 
 ### 如何使用
 
-last-version :  [ ![Download](https://api.bintray.com/packages/funnyzhaov/maven/boxhelper/images/download.svg?version=2.4.2) ](https://bintray.com/funnyzhaov/maven/boxhelper/2.4.2/link)
+last-version :  [ ![Download](https://api.bintray.com/packages/funnyzhaov/maven/boxhelper/images/download.svg?version=3.0.0) ](https://bintray.com/funnyzhaov/maven/boxhelper/3.0.0/link)
 
 
 #### 1.build.gradle(app) 中
@@ -46,7 +46,7 @@ public class TestApp extends Application {
         //初始化
         FloatingBoxManager
                       .getInstance()
-                      .setSceneCount(API.class.getName(), 3, "BASE_URL", "BASE_H5_URL")
+                      .setSceneCount(API.class.getName(),"BASE_URL", "BASE_H5_URL")
                       .addScenesUrl("测试环境",true, API.T_BASE_URL, API.T_BASE_H5_URL)
                       .addScenesUrl("正式环境", API.O_BASE_URL, API.O_BASE_H5_URL)
                       .setCachedUrlClass(OHttp.class.getName(),"mBaseUrl") //可传入网络类保存url的信息
@@ -64,7 +64,7 @@ public class TestApp extends Application {
                          }
                      })
                       .addChannelName("华为") //添加渠道
-                      .install(this,this);
+                      .install(this);
 
         //事件统计
         FloatingBoxManager.getInstance().addAysInfo("eventName","aysInfo");
@@ -75,7 +75,7 @@ public class TestApp extends Application {
 ```
 
 
-#### 3.最新版API
+#### 3.0最新版API
 
 ```java
 
@@ -96,16 +96,25 @@ public class TestApp extends Application {
         return this;
     }
 
+    /**
+     * 设置Dokit产品 ID
+     * 设置后可以使用Mock 功能
+     *
+     * @param dokitId
+     */
+     public void setDoKitProductId(String dokitId) {
+          mDokitId = dokitId;
+     }
+
     
     //执行初始化
-    void install(Context context,Application application);
+    void install(Application application);
 
     /**
      * @param managerClassName 管理url的类全名
-     * @param count            场景个数
      * @param filedName        每一个场景下 不同作用的变量名
      */
-    setSceneCount(@NonNull String managerClassName, int count, String... filedName)
+    setSceneCount(@NonNull String managerClassName,String... filedName)
     
      /**
       * 设置缓存url类的信息,调用此方法，可以立即修改网络库中的base url
