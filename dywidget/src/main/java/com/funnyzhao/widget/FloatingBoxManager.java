@@ -2,8 +2,10 @@ package com.funnyzhao.widget;
 
 import android.app.Application;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 
 import com.didichuxing.doraemonkit.DoraemonKit;
+import com.didichuxing.doraemonkit.aop.DokitPluginConfig;
 import com.didichuxing.doraemonkit.kit.AbstractKit;
 import com.funnyzhao.widget.kitcomponent.biz.ays.AysManager;
 import com.funnyzhao.widget.kitcomponent.biz.net.NetworkSceneManager;
@@ -132,6 +134,8 @@ public class FloatingBoxManager {
 
         DoraemonKit.disableUpload();//禁止上传信息
         DoraemonKit.setDebug(true);
+        DokitPluginConfig.SWITCH_BIG_IMG=true;
+        DokitPluginConfig.SWITCH_METHOD=true;
         DoraemonKit.install(application, kits, mDokitId);
     }
 
@@ -174,6 +178,11 @@ public class FloatingBoxManager {
      */
     public void setDoKitProductId(String dokitId) {
         mDokitId = dokitId;
+        if (TextUtils.isEmpty(dokitId)){
+            return;
+        }
+        DokitPluginConfig.SWITCH_DOKIT_PLUGIN=true;
+        DokitPluginConfig.SWITCH_NETWORK=true;
     }
 
 }

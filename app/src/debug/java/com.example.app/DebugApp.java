@@ -25,6 +25,8 @@ public class DebugApp extends TestApp {
     @Override
     public void onCreate() {
         super.onCreate();
+        //需要在https://www.dokit.cn/申请id
+        FloatingBoxManager.getInstance().setDoKitProductId("2345");
         FloatingBoxManager
                 .getInstance()
                 .setSceneVersionCode(2)

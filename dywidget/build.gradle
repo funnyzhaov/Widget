@@ -5,8 +5,8 @@ android {
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 30000
-        versionName "3.0.0"
+        versionCode 30001
+        versionName "3.0.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -25,6 +25,7 @@ android {
     }
 }
 
+
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:28.0.0'
@@ -40,13 +41,13 @@ publish{
 
     userOrg = 'funnyzhaov'//bintray.com你的用户名
 
-    groupId = 'com.funnyzhao'//依赖时的包名前缀
+    groupId = 'com.dailyyoga'//依赖时的包名前缀
 
     artifactId = 'boxhelper'//项目名称
 
-    publishVersion = '3.0.0'//版本号
+    publishVersion = '3.0.1'//版本号
 
-    desc = '3.0.0 '//描述
+    desc = '3.0.1 '//描述
 
     website = ''//网站，可不填
 
