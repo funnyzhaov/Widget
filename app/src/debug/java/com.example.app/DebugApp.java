@@ -1,6 +1,7 @@
 package com.example.app;
 
 import com.funnyzhao.widget.FloatingBoxManager;
+import com.zhidiantech.orangehttp.http.OfHttpUtil;
 
 /*
 
@@ -26,7 +27,7 @@ public class DebugApp extends TestApp {
     public void onCreate() {
         super.onCreate();
         //需要在https://www.dokit.cn/申请id
-        FloatingBoxManager.getInstance().setDoKitProductId("2345");
+        FloatingBoxManager.getInstance().setDoKitProductId("10d7725137bed5f60335abd9e1aba42e");
         FloatingBoxManager
                 .getInstance()
                 .setSceneVersionCode(2)
@@ -36,5 +37,11 @@ public class DebugApp extends TestApp {
                 .addScenesUrl("冬日环境", API.O_BASE_URL, API.O_BASE_H5_URL, API.T_BASE_H5_URL, API.T_BASE_H5_URL, API.T_BASE_H5_URL)
                 .addScenesUrl("特殊环境", true,API.T_BASE_URL, API.T_BASE_H5_URL, API.T_BASE_H5_URL, API.T_BASE_H5_URL, API.T_BASE_H5_URL)
                 .install(this);
+        OfHttpUtil.init(this);
+        OfHttpUtil.getInstance().startConfig().setBaseUrl("http://api.dailyyoga.com")//配置BaseUrl
+                .setLog(true)//配置工程APP的DEBUG
+                .setConnectTimeout(10000)
+                .setReadTimeout(10000)
+                .setWriteTimeout(10000);
     }
 }

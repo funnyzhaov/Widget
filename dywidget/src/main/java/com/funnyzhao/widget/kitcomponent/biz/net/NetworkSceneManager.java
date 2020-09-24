@@ -2,17 +2,13 @@ package com.funnyzhao.widget.kitcomponent.biz.net;
 
 import android.app.Application;
 import android.content.Context;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
-import com.didichuxing.doraemonkit.DoraemonKit;
 import com.didichuxing.doraemonkit.kit.AbstractKit;
-import com.funnyzhao.widget.bean.AysItem;
 import com.funnyzhao.widget.bean.HttpItem;
 import com.funnyzhao.widget.bean.SceneModel;
 import com.funnyzhao.widget.cache.SpHelper;
 import com.funnyzhao.widget.exception.SceneException;
-import com.funnyzhao.widget.kitcomponent.DyAysKit;
-import com.funnyzhao.widget.kitcomponent.DyEnvSwitchKit;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 

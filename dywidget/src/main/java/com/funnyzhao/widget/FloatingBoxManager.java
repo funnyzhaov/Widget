@@ -1,7 +1,7 @@
 package com.funnyzhao.widget;
 
 import android.app.Application;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.didichuxing.doraemonkit.DoraemonKit;
