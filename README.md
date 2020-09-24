@@ -6,7 +6,7 @@
 
 > 告别复杂烦乱的手动改环境打包，一次配置，爽到上线
 
-网络环境切换 
+网络环境切换
 
 > 数据同学测试埋点，告别一个事件3分钟刷网页等待的痛苦。实时查看，一组测完后，刷新网页对照即可。
  按事件名称筛选，告别繁杂的多事件
@@ -23,8 +23,13 @@
 
 ### 如何使用
 
-last-version :  [ ![Download](https://api.bintray.com/packages/funnyzhaov/maven/boxhelper/images/download.svg?version=3.0.1) ](https://bintray.com/funnyzhaov/maven/boxhelper/3.0.1/link)
+Android X支持版本：
 
+last-version :  [ ![Download](https://api.bintray.com/packages/funnyzhaov/maven/boxhelper/images/download.svg?version=4.0.0) ](https://bintray.com/funnyzhaov/maven/boxhelper/4.0.0/link)
+
+Android Support支持版本：
+
+last-version :  [ ![Download](https://api.bintray.com/packages/funnyzhaov/maven/boxhelper/images/download.svg?version=3.0.1) ](https://bintray.com/funnyzhaov/maven/boxhelper/3.0.1/link)
 
 #### 1.build.gradle(app) 中
 
@@ -75,7 +80,7 @@ public class TestApp extends Application {
 ```
 
 
-#### 3.0最新版API
+#### 最新版API
 
 ```java
 
@@ -106,7 +111,7 @@ public class TestApp extends Application {
           mDokitId = dokitId;
      }
 
-    
+
     //执行初始化
     void install(Application application);
 
@@ -115,7 +120,7 @@ public class TestApp extends Application {
      * @param filedName        每一个场景下 不同作用的变量名
      */
     setSceneCount(@NonNull String managerClassName,String... filedName)
-    
+
      /**
       * 设置缓存url类的信息,调用此方法，可以立即修改网络库中的base url
       *
@@ -123,7 +128,7 @@ public class TestApp extends Application {
       * @param cachedUrlFiledName 二次缓存url的变量名
       * @return
       */
-    setCachedUrlClass(String cachedUrlClass, String cachedUrlFiledName) 
+    setCachedUrlClass(String cachedUrlClass, String cachedUrlFiledName)
 
     /**
      * 添加渠道信息
@@ -163,7 +168,7 @@ public class TestApp extends Application {
                     @Override
                     public void onSpecialSceneOpen(boolean open) {
                      //特殊场景回调 打开或关闭
-                       
+
                     }
                 })
 
@@ -172,7 +177,7 @@ public class TestApp extends Application {
      * @param key 场景名称
      * @param url 场景多url
      * @return
-     */ 
+     */
      addScenesUrl(String key,String... url)
 
     /**
@@ -181,11 +186,34 @@ public class TestApp extends Application {
      * @param isDefaultScene 是否为默认场景
      * @param url 场景多url
      * @return
-     */ 
+     */
 
      addScenesUrl(String key,boolean isDefaultScene,String... url)
-     
+
 ```
 
-  
+#### 特别感谢
+
+[DoraemonKit](https://github.com/didi/DoraemonKit)
+
+
+## License
+
+```text
+Copyright 2020 funnyzhao
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+
+
 
