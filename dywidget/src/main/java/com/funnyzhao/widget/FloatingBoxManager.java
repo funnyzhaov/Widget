@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import com.didichuxing.doraemonkit.DoraemonKit;
 import com.didichuxing.doraemonkit.aop.DokitPluginConfig;
 import com.didichuxing.doraemonkit.kit.AbstractKit;
+import com.funnyzhao.widget.kitcomponent.BaseKit;
 import com.funnyzhao.widget.kitcomponent.biz.ays.AysManager;
 import com.funnyzhao.widget.kitcomponent.biz.net.NetworkSceneManager;
 
@@ -31,7 +32,6 @@ public class FloatingBoxManager {
     private FloatingBoxManager() {
     }
 
-    private String mDokitId="";//产品id
 
 
     /*--------------------------------public域---------------------------------------------*/
@@ -128,15 +128,26 @@ public class FloatingBoxManager {
      */
     public void install(Application application) {
         NetworkSceneManager.getInstance().install(application.getApplicationContext(), application);
-
-        kits.add(new DyEnvSwitchKit());
-        kits.add(new DyAysKit());
+        if (kits.size()==0){
+            kits.add(new DyEnvSwitchKit());
+            kits.add(new DyAysKit());
+        }
 
         DoraemonKit.disableUpload();//禁止上传信息
         DoraemonKit.setDebug(true);
         DokitPluginConfig.SWITCH_BIG_IMG=true;
         DokitPluginConfig.SWITCH_METHOD=true;
-        DoraemonKit.install(application, kits, mDokitId);
+        DoraemonKit.install(application, kits, "");
+    }
+
+    /**
+     * 添加自定义组件
+     * @param kit
+     */
+    public void addKit(BaseKit kit){
+        kits.add(new DyEnvSwitchKit());
+        kits.add(new DyAysKit());
+        kits.add(kit);
     }
 
 
@@ -170,19 +181,5 @@ public class FloatingBoxManager {
         AysManager.getInstance().addAysInfo(eventName, info);
     }
 
-    /**
-     * 设置Dokit产品 ID
-     * 设置后可以使用Mock 功能
-     *
-     * @param dokitId
-     */
-    public void setDoKitProductId(String dokitId) {
-        mDokitId = dokitId;
-        if (TextUtils.isEmpty(dokitId)){
-            return;
-        }
-        DokitPluginConfig.SWITCH_DOKIT_PLUGIN=true;
-        DokitPluginConfig.SWITCH_NETWORK=true;
-    }
 
 }

@@ -1,12 +1,12 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.novoda.bintray-release'
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 28
-        versionCode 40000
-        versionName "4.0.0"
+        targetSdkVersion 29
+        versionCode 40100
+        versionName "4.1.0"
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
     buildTypes {
@@ -33,7 +33,7 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
-    api 'com.didichuxing.doraemonkit:doraemonkit:3.2.0'
+    api 'com.didichuxing.doraemonkit:dokitx:3.3.5'
     implementation 'com.google.code.gson:gson:2.8.6'
 }
 publish{
@@ -42,11 +42,11 @@ publish{
 
     groupId = 'com.dailyyoga'//依赖时的包名前缀
 
-    artifactId = 'boxhelper'//项目名称
+    artifactId = 'boxhelperx'//项目名称
 
-    publishVersion = '4.0.0'//版本号
+    publishVersion = '4.1.0'//版本号
 
-    desc = '4.0.0 '//描述
+    desc = '4.1.0 '//描述
 
     website = ''//网站，可不填
 
