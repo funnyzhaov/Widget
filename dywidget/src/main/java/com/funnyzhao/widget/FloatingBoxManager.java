@@ -27,7 +27,7 @@ import com.funnyzhao.widget.kitcomponent.DyEnvSwitchKit;
 public class FloatingBoxManager {
 
     private List<AbstractKit> kits = new ArrayList<>();
-    private static FloatingBoxManager mInstance; //单例
+    private volatile static FloatingBoxManager mInstance; //单例
 
     private FloatingBoxManager() {
     }

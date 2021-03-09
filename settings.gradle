@@ -1,1 +1,2 @@
+include ':boxhelper'
 include ':dywidget', ':app'
