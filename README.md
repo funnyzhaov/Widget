@@ -17,9 +17,6 @@
 
 
 
-### API
-
-[ API WIKI](https://github.com/funnyzhaov/Widget/wiki/%E6%A0%B8%E5%BF%83API%E8%AF%B4%E6%98%8E)
 
 ### 如何使用
 
@@ -30,7 +27,7 @@
 **Android X**
 
 ```
-    debugImplementation 'com.dailyyoga:boxhelperx:last-version'
+ debugImplementation 'com.dailyyoga:boxhelperx: [ ![Download](https://api.bintray.com/packages/funnyzhaov/maven/boxhelperx/images/download.svg?version=4.0.1) ](https://bintray.com/funnyzhaov/maven/boxhelperx/4.0.1/link)'
     
 ```
 
@@ -84,6 +81,13 @@ public class TestApp extends Application {
 #### 最新版API
 
 ```java
+
+     /**
+      * 添加自定义组件
+      * 你可以调用此方法添加自己的组件在面板中
+      * @param kit
+      */
+      public void addKit(BaseKit kit){}
 
      /**
       * 设置当前场景的版本号
