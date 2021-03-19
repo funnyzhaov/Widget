@@ -27,7 +27,7 @@
 **Android X**
 
 ```
- debugImplementation 'com.dailyyoga:boxhelperx:4.0.1'
+ debugImplementation 'com.dailyyoga:boxhelperx:4.1.0'
     
 ```
 
