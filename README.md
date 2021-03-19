@@ -27,14 +27,14 @@
 **Android X**
 
 ```
- debugImplementation 'com.dailyyoga:boxhelperx: ![4.0.1](https://api.bintray.com/packages/funnyzhaov/maven/boxhelperx/images/download.svg?version=4.0.1) '
+ debugImplementation 'com.dailyyoga:boxhelperx:4.0.1'
     
 ```
 
 **Android Support**
 
 ```
- debugImplementation 'com.dailyyoga:boxhelper: ![3.0.1](https://api.bintray.com/packages/funnyzhaov/maven/boxhelper/images/download.svg?version=3.0.1) '
+ debugImplementation 'com.dailyyoga:boxhelper:3.0.1 '
 
 ```
 
